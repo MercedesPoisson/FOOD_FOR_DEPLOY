@@ -1,4 +1,4 @@
-//                       _oo0oo_
+ //                       _oo0oo_
 //                      o8888888o
 //                      88" . "88
 //                      (| -_- |)
@@ -21,8 +21,15 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => { 
   server.listen(3001, () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
 });
+
+/*
+{ force: false } -> mantiene todo igual y los datos son persistentes
+{ force : true } -> DROP (delete) a todas las tablas y vuelve a crear lo que tiene en la configuracion
+{ alter: true } -> UPDATE -> chequea que tiene la tabla y suma lo que le falta
+
+*/
