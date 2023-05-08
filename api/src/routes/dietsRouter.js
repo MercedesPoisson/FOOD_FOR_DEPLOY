@@ -1,3 +1,8 @@
-// const { Router } = require("express");
+require('dotenv').config();
+const express = require("express");
+const router = express.Router();
+const getAllDiets = require("../controllers/getAllDiets")
 
-// module.exports = dietsRouter;
+router.get("/", getAllDiets)
+    
+module.exports = router;

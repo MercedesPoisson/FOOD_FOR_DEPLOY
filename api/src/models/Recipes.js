@@ -10,9 +10,9 @@ module.exports = (sequelize) => {
     },
     id: {
       type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       autoincrement: true,
       primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
     },
     image:{
@@ -23,13 +23,21 @@ module.exports = (sequelize) => {
      },
     summary:{
       type: DataTypes.TEXT,
+      allowNull: false,
      },
     healtScore:{
       type: DataTypes.FLOAT,
+      allowNull: false,
      },
     stepByStep: {
       type: DataTypes.JSON,
-     }
+      allowNull: false,
+     },
+    createdInDb: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    }
   },  {
     timestamps: false,
 });
