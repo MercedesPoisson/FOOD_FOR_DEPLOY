@@ -25,3 +25,32 @@ Debe buscar tanto las de la API como las de la base de datos.
 Esta ruta recibirá todos los datos necesarios para crear una nueva receta y relacionarla con los tipos de dieta solicitados.
 Toda la información debe ser recibida por body.
 Debe crear la receta en la base de datos, y esta debe estar relacionada con los tipos de dieta indicados (al menos uno). */
+
+// pero lo que si tengo es controladores donde hago la logica , por ejemplo con este controlador traigo de la api y de bse de datos las recetas
+// const getAllRecipe = async (req, res) => {
+//   try {
+//     const apiRecipe = await axios.get(
+//       `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
+//     );
+//     let allApiRecipe = apiRecipe?.map((info) => info.data.results).flat();
+//     allApiRecipe = allApiRecipe.map((recipe) => {
+//       return {
+//         id: recipe.id,
+//         title: recipe.title,
+//         summary: recipe.summary,
+//         healtScore: recipe.healtScore,
+//         steps: recipe.analyzedInstructions?.map((el) => el.steps.step),
+//         diets: recipe.diets?.map((el) => el),
+//       };
+//     });
+//     let bdRecipe = await Recipe.findAll({
+//       include: [
+//         {
+//           model: Diet,
+//           attributes: ["diets"],
+//           through: {
+//             attributes: [],
+//           },
+//         },
+//       ],
+//     });
