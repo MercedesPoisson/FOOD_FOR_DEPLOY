@@ -3,7 +3,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>Henry Food</h1>
+      <img className='background-img' src={require('./Foodie_Lovers.png')} alt='Foddie' />
     </div>
   );
 }
