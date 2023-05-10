@@ -1,18 +1,10 @@
 import './App.css';
 
-
-
 function App() {
   return (
     <div className="App">
-      <img className='background-img' src={require('./Foodie_Lovers.png')} alt='Foddie' />
-    
-  
-    
-    
+      <h1>Henry Food</h1>
     </div>
-
-    
   );
 }
 
