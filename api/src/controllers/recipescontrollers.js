@@ -47,7 +47,7 @@ const getRecipeByID = async (id, source) => {
   
     const apiRecipesRaw = (
       await axios.get(
-        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`
+        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
       )
     ).data.results;
   
@@ -59,6 +59,7 @@ const getRecipeByID = async (id, source) => {
       // Si no se encuentran coincidencias en la API ni en la base de datos, devolver todas las recetas
       const allRecipes = await getAllRecipes();
       return allRecipes.map((recipe) => ({
+        id: recipe.id,
         name: recipe.name,
         summary: recipe.summary,
         healthScore: recipe.healthScore,
@@ -69,6 +70,7 @@ const getRecipeByID = async (id, source) => {
   
     return [
       ...filteredApi.map((recipe) => ({
+        id: recipe.id,
         name: recipe.title,
         summary: recipe.summary,
         healthScore: recipe.healthScore,
@@ -76,6 +78,7 @@ const getRecipeByID = async (id, source) => {
         image: recipe.image,
       })),
       ...dataBaseRecipes.map((recipe) => ({
+        id: recipe.id,
         name: recipe.name,
         summary: recipe.summary,
         healthScore: recipe.healthScore,
