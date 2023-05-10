@@ -1,4 +1,4 @@
-const { Recipe } = require("../db")
+const { Recipes } = require("../db")
 require("dotenv").config();
 const axios = require("axios");
 const APIKEY = process.env.APIKEY;
@@ -18,20 +18,20 @@ const cleanArray = (arr) =>
     })
 
 const createRecipe = async (name, summary, healthScore, stepByStep) => {
-   return await Recipe.create({name, summary, healthScore, stepByStep})
+   return await Recipes.create({name, summary, healthScore, stepByStep})
 };
 
 const getRecipeByID = async (id, source) => {
     const recipe = 
       source === "api" 
       ? (await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)).data
-      : await Recipe.findByPk(id);
+      : await Recipes.findByPk(id);
 
     return recipe;
   };
 
   const getAllRecipes = async () => {
-    const dataBaseRecipes = await Recipe.findAll();
+    const dataBaseRecipes = await Recipes.findAll();
     const apiRecipesRaw = (await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`)).data;
 
     let apiRecipes = [];
@@ -42,7 +42,7 @@ const getRecipeByID = async (id, source) => {
   };
 
   const searchRecipesByName = async (name) => {
-    const dataBaseRecipes = await Recipe.findAll({where:{ name: name }})
+    const dataBaseRecipes = await Recipes.findAll({where:{ name: name }})
 
     const apiRecipesRaw = (
         await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`)).data;
