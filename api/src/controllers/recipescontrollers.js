@@ -13,7 +13,7 @@ const cleanArray = (arr) =>
             name: elem.name,
             summary: elem.summary,
             healthScore: elem.healthScore,
-            stepByStep: elem.stepByStep,
+            stepByStep: elem.step,
             createdInDb: false,
         }
     })
@@ -43,19 +43,46 @@ const getRecipeByID = async (id, source) => {
   };
   
   const searchRecipesByName = async (name) => {
-    const dataBaseRecipes = await Recipes.findAll({ where: { name: { [Op.iLike]: `%${name}%` } } });
+    const dataBaseRecipes = await Recipes.findAll({ where: { name: name } });
   
-    const apiRecipesRaw = (await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)).data.results;
+    const apiRecipesRaw = (
+      await axios.get(
+        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`
+      )
+    ).data.results;
   
-    const filteredApi = apiRecipesRaw.filter((recipe) => recipe.title.toLowerCase().includes(name.toLowerCase()));
+    const filteredApi = apiRecipesRaw.filter((recipe) =>
+      recipe.title.toLowerCase().includes(name.toLowerCase())
+    );
   
     if (filteredApi.length === 0 && dataBaseRecipes.length === 0) {
       // Si no se encuentran coincidencias en la API ni en la base de datos, devolver todas las recetas
       const allRecipes = await getAllRecipes();
-      return allRecipes;
+      return allRecipes.map((recipe) => ({
+        name: recipe.name,
+        summary: recipe.summary,
+        healthScore: recipe.healthScore,
+        stepByStep: recipe.step,
+        image: recipe.image,
+      }));
     }
   
-    return [...filteredApi, ...dataBaseRecipes];
+    return [
+      ...filteredApi.map((recipe) => ({
+        name: recipe.title,
+        summary: recipe.summary,
+        healthScore: recipe.healthScore,
+        stepByStep: recipe.step,
+        image: recipe.image,
+      })),
+      ...dataBaseRecipes.map((recipe) => ({
+        name: recipe.name,
+        summary: recipe.summary,
+        healthScore: recipe.healthScore,
+        stepByStep: recipe.step,
+        image: recipe.image,
+      })),
+    ];
   };
 
 
