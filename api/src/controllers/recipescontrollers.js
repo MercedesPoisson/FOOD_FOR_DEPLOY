@@ -3,6 +3,7 @@ require("dotenv").config();
 const axios = require("axios");
 const APIKEY = process.env.APIKEY;
 const API_KEY = process.env.API_KEY;
+const { Op } = require("sequelize");
 
 
 const cleanArray = (arr) => 
@@ -32,25 +33,53 @@ const getRecipeByID = async (id, source) => {
 
   const getAllRecipes = async () => {
     const dataBaseRecipes = await Recipes.findAll();
-    const apiRecipesRaw = (await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`)).data;
-
+    const apiRecipesRaw = (await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)).data;
+  
     let apiRecipes = [];
-    if(Array.isArray(apiRecipesRaw)){
-        apiRecipes = cleanArray(apiRecipesRaw);
-    }    
+    if (Array.isArray(apiRecipesRaw)) {
+      apiRecipes = cleanArray(apiRecipesRaw);
+    }
     return [...dataBaseRecipes, ...apiRecipes];
   };
-
+  
   const searchRecipesByName = async (name) => {
-    const dataBaseRecipes = await Recipes.findAll({where:{ name: name }})
-
-    const apiRecipesRaw = (
-        await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`)).data;
-
-    const apiRecipes = cleanArray(apiRecipesRaw);
-    const filteredApi = apiRecipes.filter((recipe) => recipe.name === name);
-    return [...filteredApi, ...dataBaseRecipes]
+    const dataBaseRecipes = await Recipes.findAll({ where: { name: { [Op.iLike]: `%${name}%` } } });
+  
+    const apiRecipesRaw = (await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)).data.results;
+  
+    const filteredApi = apiRecipesRaw.filter((recipe) => recipe.title.toLowerCase().includes(name.toLowerCase()));
+  
+    if (filteredApi.length === 0 && dataBaseRecipes.length === 0) {
+      // Si no se encuentran coincidencias en la API ni en la base de datos, devolver todas las recetas
+      const allRecipes = await getAllRecipes();
+      return allRecipes;
+    }
+  
+    return [...filteredApi, ...dataBaseRecipes];
   };
+
+
+
+  // const searchRecipesByName = async (name) => {
+  //   const dataBaseRecipes = await Recipes.findAll({ where: { name: name } });
+  
+  //   const apiRecipesRaw = (
+  //     await axios.get(
+  //       `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`
+  //     )
+  //   ).data.results;
+  
+  //   const filteredApi = apiRecipesRaw.filter((recipe) => recipe.title === name);
+  
+  //   if (filteredApi.length === 0 && dataBaseRecipes.length === 0) {
+  //     // Si no se encuentran coincidencias en la API ni en la base de datos, devolver todas las recetas
+  //     const allRecipes = await getAllRecipes();
+  //     return allRecipes;
+  //   }
+  
+  //   return [...filteredApi, ...dataBaseRecipes];
+  // };
+
   
  
 module.exports = {

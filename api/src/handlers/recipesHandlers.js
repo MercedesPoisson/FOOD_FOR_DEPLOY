@@ -3,10 +3,13 @@ const { createRecipe, getRecipeByID, getAllRecipes, searchRecipesByName } = requ
 
 const getRecipesHandler = async (req, res) => {
   const { name } = req.query;
-
-  const results = name ? await searchRecipesByName(name) : await getAllRecipes()
-  res.status(200).json(results)
-  };
+  try {
+    const response = await searchRecipesByName(name); 
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(400).json({ error: error.message, descripcion: 'No se encontraron recetas.' });
+  }
+};
 
 
 const getRecipeHandler = async (req, res) => {
