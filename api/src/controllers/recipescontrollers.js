@@ -3,7 +3,7 @@ require("dotenv").config();
 const axios = require("axios");
 const APIKEY = process.env.APIKEY;
 const API_KEY = process.env.API_KEY;
-const { Op } = require("sequelize");
+
 
 
 const cleanArray = (arr) => 
