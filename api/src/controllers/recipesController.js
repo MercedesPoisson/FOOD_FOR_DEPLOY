@@ -4,11 +4,13 @@ const { Recipes, Diets } = require("../db");
 
 const URL = process.env.APIURL;
 const APIKEY = process.env.APIKEY;
+const API_KEY = process.env.API_KEY;
 
 //Traigo toda la info de la Api
 const getAllApiInfo = async () => {
-    const apiUrl = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`);
-    const apiInfo = await apiUrl.data.map(recipe => {
+    const apiUrl = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`);
+    // console.log(apiUrl.data);
+    const apiInfo = await apiUrl.data.results.map(recipe => {
         return {
             id: recipe.id,
             name: recipe.title,
@@ -33,54 +35,34 @@ const getAllDbInfo = async () => {
     }
   })
 }
-// esta funcion me trae tanto las recetas de la API como las recetas de la BDD
+// esta funcion me trae tanto las recetas de la API y las recetas de la BDD
 const getAllRecipes = async () => {
-    const apiInfo = await getAllApiinfo();
+    const apiInfo = await getAllApiInfo();
     const dbInfo = await getAllDbInfo();
     const infoTotal = apiInfo.concat(dbInfo);
+    // console.log(infoTotal);
     return infoTotal;
 }
 
-// Busco una receta por ID
 const getRecipeById = async (req, res) => {
-    try {
-        const { id } = req.params;
-// busco la receta en la BBD
-        const localRecipe = await Recipe.findOne({where: {id}});
-        if(localRecipe) {
-            return res.status(200).json(localRecipe);
-        }
-// si no la encontro en la BDD sigo a la API
-        const { data } = await axios(`${URL}${APIKEY}${id}`);
-
-        if(!data.name) throw new Error(`Missing Data for Recipe with ID number: ${id}`)
-        const recipe = {
-            id: data.id,
-            name: data.name,
-            image: data.image,
-            summary: data.summary,
-            healthScore: data.healthScore,
-            stepByStep: data.stepByStep
-        };
-// Guardo la receta en la BDD
-        await Recipe.create(recipe);
-
-        return res.status(200).json(recipe)
-    } catch (error) {
-        return error.message.includes("ID")
-        ? res.status(404).send(error.message)
-        : res.status(500).send(error.response.data.error) 
+    const { id } = req.params;
+    const recipesTotal = await getAllRecipes();
+    const recipe = recipesTotal.find(recipe => recipe.id === parseInt(id));
+    if (recipe) {
+      res.status(200).json(recipe);
+    } else {
+      res.status(404).send(`Recipe with ID: ${id} not found`);
     }
- };  
+  };
 
 const getRecipeByName = async (req, res) => {
-    const title = req.query.title;
+    const name = req.query.name;
     let recipesTotal = await getAllRecipes();
-    if(title){
-        let recipeTitle = await recipesTotal.filter(el => el.title.toLowerCase().includes(title.toLowerCase()))
-        recipeTitle.length ?
-        res.status(200).send(recipeTitle) :
-        res.status(404).send("Title not Found")
+    if(name){
+        let recipeName = await recipesTotal.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))
+        recipeName.length ?
+        res.status(200).send(recipeName) :
+        res.status(404).send("Recipe not Found")
     } else {
         res.status(200).send(recipesTotal)
     }  
