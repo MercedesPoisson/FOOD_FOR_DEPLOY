@@ -3,7 +3,6 @@ import style from "./CardsContainer.module.css";
 import { useSelector } from "react-redux";
 
 const CardsContainer = () => {
- 
       const recipes = useSelector(state => state.recipes)
 
     return(
