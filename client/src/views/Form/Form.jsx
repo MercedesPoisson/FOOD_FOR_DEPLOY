@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 const Form = ( ) => {
 
@@ -11,15 +12,15 @@ const Form = ( ) => {
         typeDiets: []
     });
 
-    const [ errors, setErrors ] = useState({
-        title: "",
-        summary: "",
-        spoonacularScore: "",
-        HealthScore: "",
-        analyzedInstructions: "",
-        typeDiets: []
+    // const [ errors, setErrors ] = useState({
+    //     title: "",
+    //     summary: "",
+    //     spoonacularScore: "",
+    //     HealthScore: "",
+    //     analyzedInstructions: "",
+    //     typeDiets: []
         
-    })
+    // })
 
     const changeHandler = (event) => {
         const property = event.target.name;
@@ -28,9 +29,9 @@ const Form = ( ) => {
         setForm({...form, [property]: value})
     }
 
-    const validate = (form) => {
+    // const validate = (form) => {
         
-    }
+    // }
 
     const submitHandler = (event) => {
         event.preventDefault()
