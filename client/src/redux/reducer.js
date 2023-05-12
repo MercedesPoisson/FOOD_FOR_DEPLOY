@@ -7,7 +7,6 @@ const initialState = {
     typeDiets: []
 }
 
-
 const rootReducer = (state = initialState, action) => {
     switch(action.type){
         case GET_RECIPES:

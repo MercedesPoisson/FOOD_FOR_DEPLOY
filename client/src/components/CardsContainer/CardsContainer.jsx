@@ -1,9 +1,10 @@
 import Card from "../Card/Card";
 import style from "./CardsContainer.module.css";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
-const CardsContainer = () => {
-      const recipes = useSelector(state => state.recipes)
+const CardsContainer = ({recipes}) => {
+    //   const recipes = useSelector(state => state.recipes)
+      console.log(recipes);
 
     return(
         <div className={style.container}>

@@ -7,7 +7,7 @@ const getRecipesHandler = async (req, res) => {
     const response = await searchRecipesByName(name); 
     res.status(200).json(response);
   } catch (error) {
-    res.status(400).json({ error: error.message, descripcion: 'No se encontraron recetas.' });
+    res.status(400).json({ error: error.message, descripcion: 'No available recipes.' });
   }
 };
 
@@ -26,9 +26,9 @@ try {
 };
 
 const postRecipeHandler = async (req, res) => {
-  const { name, summary, healthScore, stepByStep } = req.body;
+  const { name, summary, healthScore, stepByStep, diets } = req.body;
   try {
-    const newRecipe = await createRecipe(name, summary, healthScore, stepByStep);
+    const newRecipe = await createRecipe(name, summary, healthScore, stepByStep, diets);
     res.status(201).json(newRecipe);
   } catch (error) {
     res.status(400).json({error: error.message});    

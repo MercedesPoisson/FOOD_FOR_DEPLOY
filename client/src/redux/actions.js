@@ -1,9 +1,4 @@
 import axios from "axios";
-// require("dotenv").config();
-// const { APIKEY } = process.env;
-// const API_KEY = process.env.API_KEY;
-
-
 export const GET_RECIPES = "GET_RECIPES";
 export const GET_BY_NAME = "GET_BY_NAME";
 export const GET_BY_ID = "GET_BY_ID";

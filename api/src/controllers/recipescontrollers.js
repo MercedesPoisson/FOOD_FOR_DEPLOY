@@ -5,21 +5,31 @@ const APIKEY = process.env.APIKEY;
 const API_KEY = process.env.API_KEY;
 
 
+const getRecipeSteps = (recipe) => {
+  if (!recipe.stepByStep || recipe.stepByStep.length === 0) {
+    return [];
+    }
+    
+  const steps = recipe.stepByStep[0].steps;
+    return steps.map((step) => step.step);
+    }
 
-const cleanArray = (arr) => 
+    const cleanArray = (arr) => 
     arr.map(elem => {
         return {
             id: elem.id,
-            name: elem.name,
+            name: elem.title,
+            img: elem.image,
             summary: elem.summary,
+            diets: elem.diets,
             healthScore: elem.healthScore,
-            stepByStep: elem.step,
+            stepByStep: getRecipeSteps(elem),
             createdInDb: false,
         }
     })
 
-const createRecipe = async (name, summary, healthScore, stepByStep) => {
-   return await Recipes.create({name, summary, healthScore, stepByStep})
+const createRecipe = async (name, summary, healthScore, stepByStep, diets) => {
+   return await Recipes.create({name, summary, healthScore, stepByStep, diets})
 };
 
 const getRecipeByID = async (id, source) => {
@@ -33,16 +43,24 @@ const getRecipeByID = async (id, source) => {
 
   const getAllRecipes = async () => {
     const dataBaseRecipes = await Recipes.findAll();
-    const apiRecipesRaw = (await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)).data;
+    const apiRecipesRaw = (await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`)).data.results;
   
     let apiRecipes = [];
     if (Array.isArray(apiRecipesRaw)) {
       apiRecipes = cleanArray(apiRecipesRaw);
     }
-    return [...dataBaseRecipes, ...apiRecipes];
+    const allRecipes = [...dataBaseRecipes, ...apiRecipes];
+    console.log(allRecipes);
+
+    return allRecipes;
   };
   
   const searchRecipesByName = async (name) => {
+    if (!name) {
+      // si no viene name por query me trae todas las recetas
+      return getAllRecipes();
+    }
+  
     const dataBaseRecipes = await Recipes.findAll({ where: { name: name } });
   
     const apiRecipesRaw = (
@@ -54,19 +72,6 @@ const getRecipeByID = async (id, source) => {
     const filteredApi = apiRecipesRaw.filter((recipe) =>
       recipe.title.toLowerCase().includes(name.toLowerCase())
     );
-  
-    if (filteredApi.length === 0 && dataBaseRecipes.length === 0) {
-      // Si no se encuentran coincidencias en la API ni en la base de datos, devolver todas las recetas
-      const allRecipes = await getAllRecipes();
-      return allRecipes.map((recipe) => ({
-        id: recipe.id,
-        name: recipe.name,
-        summary: recipe.summary,
-        healthScore: recipe.healthScore,
-        stepByStep: recipe.step,
-        image: recipe.image,
-      }));
-    }
   
     return [
       ...filteredApi.map((recipe) => ({
