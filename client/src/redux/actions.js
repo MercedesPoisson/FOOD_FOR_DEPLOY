@@ -3,6 +3,7 @@ export const GET_RECIPES = "GET_RECIPES";
 export const GET_BY_NAME = "GET_BY_NAME";
 export const GET_BY_ID = "GET_BY_ID";
 export const GET_TYPE_DIETS = "GET_TYPE_DIETS";
+export const CLEAN_DETAIL = "CLEAN_DETAIL";
 
 export const getRecipes = () => {
     return async function(dispatch){
@@ -26,6 +27,10 @@ export const getRecipesById = (id) => {
         const recipesById = apiData.data;
         dispatch({ type: GET_BY_ID, payload: recipesById });
     }
+}
+
+export const cleanDetail = () => {
+    return { type: CLEAN_DETAIL};
 }
 
 export const getTypeDiets = () => {

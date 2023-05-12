@@ -3,12 +3,11 @@ import style from "./CardsContainer.module.css";
 // import { useSelector } from "react-redux";
 
 const CardsContainer = ({recipes}) => {
-    //   const recipes = useSelector(state => state.recipes)
-      console.log(recipes);
+    const maxRecipes = recipes.slice(0, 20);//   const recipes = useSelector(state => state.recipes)
 
     return(
         <div className={style.container}>
-            {recipes.map(recipe => {
+            {maxRecipes.map(recipe => {
                 return <Card
                     id= {recipe.id}
                     name= {recipe.name}

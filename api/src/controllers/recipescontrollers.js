@@ -35,7 +35,7 @@ const createRecipe = async (name, summary, healthScore, stepByStep, diets) => {
 const getRecipeByID = async (id, source) => {
     const recipe = 
       source === "api" 
-      ? (await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)).data
+      ? (await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5/${id}`)).data
       : await Recipes.findByPk(id);
 
     return recipe;

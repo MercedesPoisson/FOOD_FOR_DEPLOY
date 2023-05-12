@@ -1,8 +1,10 @@
 import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import NavBar from "../../components/NavBar/NavBar";
-import { useEffect } from "react";
+import Pagination from "../../components/Pagination/Pagination";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../../redux/actions";
+
 
 const Home = ( ) => {
     const dispatch = useDispatch();
@@ -12,15 +14,27 @@ const Home = ( ) => {
     },[dispatch]);
 
     const recipes = useSelector((state) => state.recipes);
+    const recipesPerPage = 20;
+    const [ currentPage, setCurrentPage ] = useState(1);
 
-    return(
+    const pagination = (pageNumber) => {
+        setCurrentPage(pageNumber);      
+    };
+    const indexOfLastRecipe = currentPage * recipesPerPage;
+    const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+    const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+    
+    return (
         <>
-        <h1>Esta es la vista de Home</h1>
-        <CardsContainer recipes={recipes} />
+        <CardsContainer recipes={currentRecipes} />
         <NavBar />
-       
+        <Pagination
+        recipesPerPage={recipesPerPage}
+        allRecipes={recipes.length} // Número total de recetas
+        paginado={pagination}
+      />
         </> 
-    )
-}
+    );
+};
 
 export default Home; 
