@@ -1,8 +1,98 @@
-.mainContainer {
+.navContainer {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    border-radius: 15px;
-       
-
-}
+    justify-content: center;
+  }
+  
+  .navBar {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    background-color: #BDC289;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .navElements {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .navLinks {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .searchContainer {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .searchInput {
+    margin-right: 10px;
+    height: 20px;
+  }
+  
+  .searchButton {
+    background-color: transparent;
+    border: 1px solid #96a368;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+  }
+  .searchButton:hover {
+    background-color: #96a368; 
+  }
+  
+  .navElements ul {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    font-weight: bold;
+  }
+  
+  .navElements ul li:not(:last-child) {
+    margin-right: 20px; /* Ajusta el valor según el espacio deseado */
+  }
+  
+  .navElements ul a {
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .navElements ul a.active {
+    color: #574c4c;
+    font-weight: 500;
+    position: relative;
+  }
+  
+  .navElements ul a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #574c4c;
+  }

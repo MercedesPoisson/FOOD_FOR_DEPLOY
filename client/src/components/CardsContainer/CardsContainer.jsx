@@ -14,7 +14,7 @@ const CardsContainer = ({recipes}) => {
                     name= {recipe.name}
                     summery= {recipe.summary}
                     healthScore= {recipe.healthScore}
-                    image= {recipe.image}
+                    image= {recipe.img}
                     />
                 })}
  

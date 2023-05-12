@@ -43,7 +43,7 @@ const getRecipeByID = async (id, source) => {
 
   const getAllRecipes = async () => {
     const dataBaseRecipes = await Recipes.findAll();
-    const apiRecipesRaw = (await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`)).data.results;
+    const apiRecipesRaw = (await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)).data.results;
   
     let apiRecipes = [];
     if (Array.isArray(apiRecipesRaw)) {
