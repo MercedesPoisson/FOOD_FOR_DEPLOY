@@ -1,0 +1,17 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 70px;
+  }
+  
+  .checkboxContainer {
+    display: flex;
+    flex-wrap: wrap;
+    
+  }
+  
+  .checkboxContainer > div {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    
+  }

@@ -9,6 +9,7 @@ const CardsContainer = ({recipes}) => {
         <div className={style.container}>
             {maxRecipes.map(recipe => {
                 return <Card
+                    key={recipe.id}
                     id= {recipe.id}
                     name= {recipe.name}
                     summery= {recipe.summary}

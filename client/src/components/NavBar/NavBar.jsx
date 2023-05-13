@@ -1,7 +1,26 @@
 import { Link } from "react-router-dom";
 import style from "./NavBar.module.css";
+import { getRecipesByName } from "../../redux/actions";
+import React, { useState } from "react";
+import { connect } from "react-redux";
 
-const NavBar = () => {
+
+const NavBar = ({getRecipesByName}) => {
+  const [ searchValue, setSearchValue ] = useState("");
+
+  const onSearch = (name) => {
+    getRecipesByName(name);
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  }
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    onSearch(searchValue);
+  }
+
 
     return (
       <nav className={style.navContainer}>
@@ -10,8 +29,10 @@ const NavBar = () => {
             <div className={style.navElements}>
               <div className={style.leftSection}>
                 <div className={style.searchContainer}>
-                  <input type="text" placeholder="Search" className={style.searchInput} />
-                  <button className={style.searchButton}>SEARCH</button>
+                <form onSubmit={handleSearchSubmit}>
+                  <input type="text" placeholder="Search" className={style.searchInput} value={searchValue} onChange={handleSearchChange}/>
+                  <button className={style.searchButton} type="submit">SEARCH</button>
+                  </form>
                 </div>
               </div>
               <div className={style.rightSection}>
@@ -28,4 +49,4 @@ const NavBar = () => {
     );
   };
   
-  export default NavBar;
+  export default connect(null, { getRecipesByName })(NavBar);

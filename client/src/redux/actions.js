@@ -4,6 +4,9 @@ export const GET_BY_NAME = "GET_BY_NAME";
 export const GET_BY_ID = "GET_BY_ID";
 export const GET_TYPE_DIETS = "GET_TYPE_DIETS";
 export const CLEAN_DETAIL = "CLEAN_DETAIL";
+export const FILTER_BY_DIET = "FILTER_BY_DIET";
+export const DB_RECIPES = "DB_RECIPES";
+export const API_RECIPES = "API_RECIPES";
 
 export const getRecipes = () => {
     return async function(dispatch){
@@ -31,6 +34,10 @@ export const getRecipesById = (id) => {
 
 export const cleanDetail = () => {
     return { type: CLEAN_DETAIL};
+}
+
+export const filterByDiet = (typeDiets) => {
+    return { type: FILTER_BY_DIET, payload: typeDiets}
 }
 
 export const getTypeDiets = () => {

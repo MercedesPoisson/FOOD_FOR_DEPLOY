@@ -4,6 +4,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../../redux/actions";
+import Filters from "../../components/Filters/Filters";
 
 
 const Home = ( ) => {
@@ -14,7 +15,7 @@ const Home = ( ) => {
     },[dispatch]);
 
     const recipes = useSelector((state) => state.recipes);
-    const recipesPerPage = 20;
+    const recipesPerPage = 9;
     const [ currentPage, setCurrentPage ] = useState(1);
 
     const pagination = (pageNumber) => {
@@ -25,9 +26,11 @@ const Home = ( ) => {
     const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
     
     return (
-        <>
-        <CardsContainer recipes={currentRecipes} />
+        <> 
         <NavBar />
+        <Filters />
+        <CardsContainer recipes={currentRecipes} />
+       
         <Pagination
         recipesPerPage={recipesPerPage}
         allRecipes={recipes.length} // Número total de recetas

@@ -7,7 +7,7 @@ const { Diets } = require("../db");
 //busco todas las recetas de la API, extraigo la info de las dietas y las almaceno en un array en la BDD. Devuelvo Array
 const getAllDiets = async (req, res) => {
     try {
-        const dietsApi = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`)
+        const dietsApi = await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)
         const dietArray = dietsApi.data.results?.map((recipe) => recipe.diets);
         const dietsEach = dietArray.flat();
         const diets = [...new Set(dietsEach)];
