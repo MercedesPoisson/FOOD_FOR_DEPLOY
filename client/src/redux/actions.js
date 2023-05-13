@@ -37,12 +37,18 @@ export const cleanDetail = () => {
 }
 
 export const filterByDiet = (typeDiets) => {
-    return { type: FILTER_BY_DIET, payload: typeDiets}
-}
+    return function(dispatch, getState) {
+      if (typeDiets === "All Diet Types") {
+        dispatch(getRecipes());
+      } else {
+        dispatch({ type: FILTER_BY_DIET, payload: typeDiets });
+      }
+    };
+  };
 
 export const getTypeDiets = () => {
     return async function(dispatch){
-        const apiData = await axios.get(`http://localhost:3001/Diets`);
+        const apiData = await axios.get(`http://localhost:3001/diets`);
         const typeDiets = apiData.data;
         dispatch({ type: GET_TYPE_DIETS, payload: typeDiets });
     }
