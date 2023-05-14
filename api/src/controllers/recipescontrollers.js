@@ -92,30 +92,6 @@ const getRecipeByID = async (id, source) => {
       })),
     ];
   };
-
-
-
-  // const searchRecipesByName = async (name) => {
-  //   const dataBaseRecipes = await Recipes.findAll({ where: { name: name } });
-  
-  //   const apiRecipesRaw = (
-  //     await axios.get(
-  //       `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`
-  //     )
-  //   ).data.results;
-  
-  //   const filteredApi = apiRecipesRaw.filter((recipe) => recipe.title === name);
-  
-  //   if (filteredApi.length === 0 && dataBaseRecipes.length === 0) {
-  //     // Si no se encuentran coincidencias en la API ni en la base de datos, devolver todas las recetas
-  //     const allRecipes = await getAllRecipes();
-  //     return allRecipes;
-  //   }
-  
-  //   return [...filteredApi, ...dataBaseRecipes];
-  // };
-
-  
  
 module.exports = {
     createRecipe,

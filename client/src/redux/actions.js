@@ -7,6 +7,7 @@ export const CLEAN_DETAIL = "CLEAN_DETAIL";
 export const FILTER_BY_DIET = "FILTER_BY_DIET";
 export const DB_RECIPES = "DB_RECIPES";
 export const API_RECIPES = "API_RECIPES";
+export const FILTER_BY_SOURCE = "FILTER_BY_SOURCE";
 
 export const getRecipes = () => {
     return async function(dispatch){
@@ -43,6 +44,23 @@ export const filterByDiet = (typeDiets) => {
       } else {
         dispatch({ type: FILTER_BY_DIET, payload: typeDiets });
       }
+    };
+  };
+
+  export const filterBySource = (selectedSource) => {
+    return function(dispatch, getState) {
+      const { allRecipes } = getState(); // Obtener todas las recetas originales
+  
+      let filteredRecipes = [];
+      if (selectedSource === "All Sources") {
+        filteredRecipes = allRecipes; // Todas las recetas
+      } else if (selectedSource === "API") {
+        filteredRecipes = allRecipes.filter(recipe => !recipe.created); // Recetas de la API (no creadas en la base de datos)
+      } else if (selectedSource === "Database") {
+        filteredRecipes = allRecipes.filter(recipe => recipe.created); // Recetas de la base de datos
+      }
+  
+      dispatch({ type: FILTER_BY_SOURCE, payload: filteredRecipes });
     };
   };
 
