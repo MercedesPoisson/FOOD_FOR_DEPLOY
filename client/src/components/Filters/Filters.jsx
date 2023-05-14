@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipes, getTypeDiets, filterByDiet, filterBySource } from "../../redux/actions";
+import { getRecipes, getTypeDiets, filterByDiet, filterBySource, sortRecipes } from "../../redux/actions";
 import style from "./Filters.module.css";
 
 const Filters = () => {
+  
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes);
   const typeDiets = useSelector((state) => state.typeDiets);
-
+  
   useEffect(() => {
     dispatch(getRecipes());
     dispatch(getTypeDiets());
@@ -22,6 +23,10 @@ const Filters = () => {
   // -----FILTER SOURCE--------
   const handleFilterBySource = (selectedSource) => {
     dispatch(filterBySource(selectedSource));
+  };
+  // -----ORDER A-Z / Z-A--------
+  const handleSortChange = (event) => {
+    dispatch(sortRecipes(event.target.value))
   };
 
   return (
@@ -51,6 +56,15 @@ const Filters = () => {
         <option value="API">API</option>
         <option value="Database">Database</option>
       </select>
+      </div>
+
+      <div className={style.filterContainer}>
+        <span>Sort By: </span>
+        <select onChange={handleSortChange}>
+          <option value="order" disabled="disabled">Order By</option>
+          <option value="AtoZ">A-Z</option>
+          <option value="ZtoA">Z-A</option>
+        </select>
       </div>
 
      

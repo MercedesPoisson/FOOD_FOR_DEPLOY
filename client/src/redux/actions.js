@@ -8,6 +8,7 @@ export const FILTER_BY_DIET = "FILTER_BY_DIET";
 export const DB_RECIPES = "DB_RECIPES";
 export const API_RECIPES = "API_RECIPES";
 export const FILTER_BY_SOURCE = "FILTER_BY_SOURCE";
+export const SORT_RECIPES = "SORT_RECIPES";
 
 export const getRecipes = () => {
     return async function(dispatch){
@@ -47,7 +48,7 @@ export const filterByDiet = (typeDiets) => {
     };
   };
 
-  export const filterBySource = (selectedSource) => {
+export const filterBySource = (selectedSource) => {
     return function(dispatch, getState) {
       const { allRecipes } = getState(); // Obtener todas las recetas originales
   
@@ -62,6 +63,10 @@ export const filterByDiet = (typeDiets) => {
   
       dispatch({ type: FILTER_BY_SOURCE, payload: filteredRecipes });
     };
+  };
+
+export const sortRecipes = (order) => {
+    return { type: SORT_RECIPES, payload: order };
   };
 
 export const getTypeDiets = () => {
