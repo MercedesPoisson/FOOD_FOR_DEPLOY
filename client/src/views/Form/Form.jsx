@@ -7,20 +7,20 @@ import style from "./Form.module.css";
 const Form = () => {
   const history = useHistory(); // tuve que usar este por que en la version que tengo de react-router-dom no esta useNavigate
   const [form, setForm] = useState({
-    title: "",
+    name: "",
     summary: "",
-    spoonacularScore: "",
     healthScore: "",
     analyzedInstructions: "",
+    image: "",
     typeDiets: [],
   });
 
   const [errors, setErrors] = useState({
-    title: "",
+    name: "",
     summary: "",
-    spoonacularScore: "",
     healthScore: "",
     analyzedInstructions: "",
+    image: "",
     typeDiets: [],
   });
 
@@ -85,8 +85,11 @@ const Form = () => {
   };
 
   return (
+
+    
     <div className={style.containerForm}>
       <form onSubmit={submitHandler} className={style.formContainer}>
+        
         <div>
           <label>Recipe Name:</label>
           <input

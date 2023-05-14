@@ -1,13 +1,13 @@
 import style from "./Detail.module.css";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { getRecipesById } from "../../redux/actions";
+import { useDispatch} from "react-redux";
 
 const Detail = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const recipe = useSelector(state => state.detail); // Modificado: utilizar 'detail' en lugar de 'recipe'
+    const [ recipe, setRecipe ] = useState({});
 
     useEffect(() => {
         dispatch(getRecipesById(id));

@@ -1,4 +1,5 @@
 import axios from "axios";
+
 export const GET_RECIPES = "GET_RECIPES";
 export const GET_BY_NAME = "GET_BY_NAME";
 export const GET_BY_ID = "GET_BY_ID";
@@ -9,6 +10,7 @@ export const DB_RECIPES = "DB_RECIPES";
 export const API_RECIPES = "API_RECIPES";
 export const FILTER_BY_SOURCE = "FILTER_BY_SOURCE";
 export const SORT_RECIPES = "SORT_RECIPES";
+export const ORDER_BY_SCORE = "ORDER_BY_SCORE";
 
 export const getRecipes = () => {
     return async function(dispatch){
@@ -48,26 +50,30 @@ export const filterByDiet = (typeDiets) => {
     };
   };
 
-export const filterBySource = (selectedSource) => {
-    return function(dispatch, getState) {
-      const { allRecipes } = getState(); // Obtener todas las recetas originales
+  export const filterBySource = (selectedSource) => {
+    return function (dispatch, getState) {
+      const { allRecipes, source } = getState(); // Obtener todas las recetas originales y el origen actual
   
-      let filteredRecipes = [];
-      if (selectedSource === "All Sources") {
-        filteredRecipes = allRecipes; // Todas las recetas
-      } else if (selectedSource === "API") {
-        filteredRecipes = allRecipes.filter(recipe => !recipe.created); // Recetas de la API (no creadas en la base de datos)
-      } else if (selectedSource === "Database") {
-        filteredRecipes = allRecipes.filter(recipe => recipe.created); // Recetas de la base de datos
+      let filteredRecipes = allRecipes; // Inicialmente, todas las recetas
+  
+      if (selectedSource !== source) {
+        if (selectedSource === "API") {
+          filteredRecipes = allRecipes.filter((recipe) => typeof recipe.id === "number");
+        } else if (selectedSource === "Database") {
+          filteredRecipes = allRecipes.filter((recipe) => typeof recipe.id === "string");
+        }
       }
   
-      dispatch({ type: FILTER_BY_SOURCE, payload: filteredRecipes });
+      dispatch({ type: FILTER_BY_SOURCE, payload: { filteredRecipes, source: selectedSource } });
     };
   };
-
-export const sortRecipes = (order) => {
-    return { type: SORT_RECIPES, payload: order };
+export const sortRecipes = (sort) => {
+    return { type: SORT_RECIPES, payload: sort };
   };
+
+export const sortByScore = (sort) => {
+    return { type: ORDER_BY_SCORE, payload: sort };
+};
 
 export const getTypeDiets = () => {
     return async function(dispatch){

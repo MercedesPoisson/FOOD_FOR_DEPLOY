@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipes, getTypeDiets, filterByDiet, filterBySource, sortRecipes } from "../../redux/actions";
+import { getRecipes, getTypeDiets, filterByDiet, filterBySource, sortRecipes, sortByScore } from "../../redux/actions";
 import style from "./Filters.module.css";
 
 const Filters = () => {
@@ -29,6 +29,12 @@ const Filters = () => {
     dispatch(sortRecipes(event.target.value))
   };
 
+  // -----ORDER HealthScore--------
+  const handleSortScoreChange = (event) => {
+    dispatch(sortByScore(event.target.value))
+  }
+
+
   return (
 
     <div className={style.container}>
@@ -48,7 +54,7 @@ const Filters = () => {
       </div>
 
       <div className={style.filterContainer}>
-         <select defaultValue="Source" onChange={(e) => handleFilterBySource(e.target.value)}>
+         <select defaultValue="Source" onChange={(event) => handleFilterBySource(event.target.value)}>
         <option value="Source" disabled>
           Source
         </option>
@@ -65,6 +71,16 @@ const Filters = () => {
           <option value="AtoZ">A-Z</option>
           <option value="ZtoA">Z-A</option>
         </select>
+      </div>
+
+      <div className={style.filterContainer}>
+        <select onChange={(event) => handleSortScoreChange(event.target.value)}>
+          <option value="order" disable="desabled">Health Score</option>
+          <option value={"ascendent"}>Higher</option>
+          <option value={"descendent"}>Lower</option>
+        </select>
+
+
       </div>
 
      
