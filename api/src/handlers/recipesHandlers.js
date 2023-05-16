@@ -11,7 +11,6 @@ const getRecipesHandler = async (req, res) => {
   }
 };
 
-
 const getRecipeHandler = async (req, res) => {
   const { id } = req.params;
 
