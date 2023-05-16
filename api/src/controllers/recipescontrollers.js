@@ -5,7 +5,51 @@ const APIKEY = process.env.APIKEY;
 const API_KEY = process.env.API_KEY;
 
 
-const getRecipeSteps = (recipe) => {
+const getApiRecipes = async () => {
+  const apiUrl = await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`);
+  const apiInfo = await apiUrl.data.map(elem => {
+    return {
+            id: elem.id,
+            name: elem.title,
+            image: elem.image,
+            summary: elem.summary,
+            diets: elem.diets.map(elem =>elem),
+            healthScore: elem.healthScore,
+            stepByStep: getRecipeSteps(elem),
+            createdInDb: false,
+    };
+  });
+  return apiInfo;
+};
+
+const getBdRecipes = async () => {
+  return await Recipes.findAll({
+    includes:{
+      model: Diets,
+      attributes: [ "name" ],
+      through: {
+        atributes: [],
+      }
+    }
+  });
+};
+
+const getAllRecipes = async () => {
+    
+  const dataBaseRecipes = await Recipes.findAll();
+    const apiRecipesRaw = (await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)).data.results;
+  
+    let apiRecipes = [];
+    if (Array.isArray(apiRecipesRaw)) {
+      apiRecipes = cleanArray(apiRecipesRaw);
+    }
+    const allRecipes = [...dataBaseRecipes, ...apiRecipes];
+    console.log(allRecipes);
+
+    return allRecipes;
+  };
+  
+  const getRecipeSteps = (recipe) => {
   if (!recipe.stepByStep || recipe.stepByStep.length === 0) {
     return [];
     }
@@ -19,9 +63,9 @@ const getRecipeSteps = (recipe) => {
         return {
             id: elem.id,
             name: elem.title,
-            img: elem.image,
+            image: elem.image,
             summary: elem.summary,
-            diets: elem.diets,
+            diets: elem.diets.map(elem =>elem),
             healthScore: elem.healthScore,
             stepByStep: getRecipeSteps(elem),
             createdInDb: false,
@@ -40,34 +84,15 @@ const getRecipeByID = async (id, source) => {
 
     return recipe;
   };
-
-  const getAllRecipes = async () => {
-    const dataBaseRecipes = await Recipes.findAll();
-    const apiRecipesRaw = (await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)).data.results;
   
-    let apiRecipes = [];
-    if (Array.isArray(apiRecipesRaw)) {
-      apiRecipes = cleanArray(apiRecipesRaw);
-    }
-    const allRecipes = [...dataBaseRecipes, ...apiRecipes];
-    console.log(allRecipes);
-
-    return allRecipes;
-  };
-  
-  const searchRecipesByName = async (name) => {
+const searchRecipesByName = async (name) => {
     if (!name) {
-      // si no viene name por query me trae todas las recetas
       return getAllRecipes();
     }
-  
     const dataBaseRecipes = await Recipes.findAll({ where: { name: name } });
   
     const apiRecipesRaw = (
-      await axios.get(
-        `https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`
-      )
-    ).data.results;
+      await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)).data.results;
   
     const filteredApi = apiRecipesRaw.filter((recipe) =>
       recipe.title.toLowerCase().includes(name.toLowerCase())
@@ -89,18 +114,44 @@ const getRecipeByID = async (id, source) => {
         healthScore: recipe.healthScore,
         stepByStep: recipe.step,
         image: recipe.image,
+        
       })),
     ];
+    
   };
  
 module.exports = {
     createRecipe,
     getRecipeByID,
     getAllRecipes,
-    searchRecipesByName
+    searchRecipesByName, 
+    getApiRecipes,
+    getBdRecipes,
 }
 
 
+
+  // const searchRecipesByName = async (name) => {
+  //   const dataBaseRecipes = await Recipes.findAll({ where: { name: name } });
+  
+  //   const apiRecipesRaw = (
+  //     await axios.get(
+  //       `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`
+  //     )
+  //   ).data.results;
+  
+  //   const filteredApi = apiRecipesRaw.filter((recipe) => recipe.title === name);
+  
+  //   if (filteredApi.length === 0 && dataBaseRecipes.length === 0) {
+  //     // Si no se encuentran coincidencias en la API ni en la base de datos, devolver todas las recetas
+  //     const allRecipes = await getAllRecipes();
+  //     return allRecipes;
+  //   }
+  
+  //   return [...filteredApi, ...dataBaseRecipes];
+  // };
+
+  
 
 
 // const axios = require("axios");

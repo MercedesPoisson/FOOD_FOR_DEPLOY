@@ -1,34 +1,11 @@
-// import React, { useState, useHistory, useEffect } from "react";
+import React from "react";
 import style from "./Landing.module.css";
-import Foto1 from "./Foto1.jpg";
-import Foto2 from "./Foto2.jpg";
-import Foto3 from "./Foto3.jpg";
-import Login from "./Login";
-// import axios from "axios";
-
+import Foto1 from "./fila-1-columna-1.jpg";
+import Foto2 from "./fila-2-columna-1.jpg";
+import Foto3 from "./fila-3-columna-1.jpg";
 import { Link } from 'react-router-dom';
 
 const Landing = () => {
-  // const URL = `http://localhost:3001/recipes/login/`;
-  // const [ access, setAccess ] = useState(false)
-  // const history = useHistory();
-
-  // const login = async (userData) => {
-  //   try {
-  //     const { email, password } = userData;
-  //     const { data } = await axios.get(`${URL}?email=${email}&password=${password}`);
-  //     const { access } = data;
-  //     setAccess(access);
-  //     access && history.push("/home");
-  //   } catch (error) {
-  //     alert("Error on Login");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   !access && history("/")
-  // }, [access, history])
-
   return (
     <div className={style.container}>
       <div className={`${style.firstContainer} ${style.section}`}>
@@ -58,6 +35,19 @@ const Landing = () => {
         </div>
       </div>
 
+      <div className={`${style.firstContainer} ${style.section}`}>
+        <div className={style.card}>
+          <div className={style.foto}>
+            <img src={Foto3} alt="Landing" className={style.picture} />
+          </div>
+          <div className={style.contentFoto}>
+            <div className={style.content}>
+              <h3>FIND HEALTHY IDEAS</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className={`${style.contentContainer} ${style.section}`}>
         <div className={style.textContainer}>
           <h1>
@@ -73,25 +63,11 @@ const Landing = () => {
         </div>
       </div>
 
-      <div className={`${style.firstContainer} ${style.section}`}>
-        <div className={style.card}>
-          <div className={style.foto}>
-            <img src={Foto3} alt="Landing" className={style.picture} />
-          </div>
-          <div className={style.contentFoto}>
-            <div className={style.content}>
-              <h3>FIND HEALTHY IDEAS</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className={`${style.loginFormContainer} ${style.section}`}>
-        {/* <Login /> */}
+        <form><label>Hola soy el formulario</label></form>
       </div>
     </div>
   );
 };
-
 
 export default Landing;
