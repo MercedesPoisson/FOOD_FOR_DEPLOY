@@ -40,28 +40,26 @@ const Detail = () => {
         }
         return null;
     };
+    const createMarkup = (html) => {
+        return { __html: html };
+      };
 
     return (
-        <div className={style.detailContainer}>
-            <div>
-                <img className={style.img} src={recipe?.image} alt="" />
-            </div>
-            <div className={style.titulo}>
-                <h1>{recipe?.name}</h1>
-                <h3>id Number: {recipe?.id}</h3>
-            </div>
-            <div className={style.containerData}>
-                <p>Summary: {recipe?.summary}</p>
-                <h3>HealthScore: {recipe?.healthScore} </h3>
-                <div className={style.containerStep}>
-                    {renderSteps()}
-                </div>
-            </div>
-            <div>Diet Types: {renderDiets()}</div>
-            <h1>Soy el componente Detail</h1>
-        </div>
-    )
-}
+        <div className={style.grid}>
+      <div className={style.imgContainer}>
+        <img className={style.img} src={recipe?.image} alt="" />
+      </div>
+      <div className={style.cardContent}>
+        <h1>{recipe?.name}</h1>
+        <h3>id Number: {recipe?.id}</h3>
+        <p>Summary: <span dangerouslySetInnerHTML={createMarkup(recipe?.summary)} /></p>
+        <h3>HealthScore: {recipe?.healthScore} </h3>
+        <div className={style.containerStep}>{renderSteps()}</div>
+        <div>Diet Types: {renderDiets()}</div>
+      </div>
+    </div>
+  );
+};
 
 export default Detail;
 

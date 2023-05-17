@@ -16,7 +16,7 @@ const Form = () => {
     name: "",
     summary: "",
     healthScore: "",
-    analyzedInstructions: "",
+    stepByStep: [{ step: "" }],
     image: "",
     typeDiets: [],
   })
@@ -31,10 +31,22 @@ const Form = () => {
   })
 
   const handleChange = (event) => {
-    setInput({ ...input, [event.target.name] : event.target.value})
-    setErrors(
-      validation({ ...input, [ event.target.name] : event.target.value})
-    )
+    if (event.target.name === "image") {
+      setInput({ ...input, image: event.target.value });
+    } else {
+      setInput({ ...input, [event.target.name]: event.target.value });
+    }
+    setErrors(validation({ ...input, [event.target.name]: event.target.value }));
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64Data = reader.result.split(",")[1]; // Extraer solo los datos codificados
+      setInput({ ...input, image: base64Data });
+    };
+    reader.readAsDataURL(file);
   };
 
   // const handleSelect = (event) => {
@@ -45,47 +57,51 @@ const Form = () => {
   // };
 
   const handleCheckBox = (event) => {
+    const selectedDiet = event.target.value;
+    const updatedDiets = [...input.typeDiets];
+  
     if (event.target.checked) {
-      setInput({
-        ...input,
-        typeDiets: [...input.typeDiets, event.target.value],
-      });
+      updatedDiets.push(selectedDiet);
     } else {
-      setInput({
-        ...input,
-        typeDiets: [...input.typeDiets],
-      });
+      const index = updatedDiets.indexOf(selectedDiet);
+      if (index !== -1) {
+        updatedDiets.splice(index, 1);
+      }
     }
+  
+    setInput({ ...input, typeDiets: updatedDiets });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const formErrors = validation(input);
-  if (Object.keys(formErrors).length > 0) {
-    setErrors(formErrors);
-    return;
-  }
-    // console.log(input)
-    dispatch(postRecipes(input))
-    alert("Recipe Created Successfully")
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
+  
+    const recipeData = {
+      name: input.name,
+      summary: input.summary,
+      healthScore: input.healthScore,
+      stepByStep: input.stepByStep,
+      image: input.image,
+      diets: input.typeDiets,
+    };
+  
+    dispatch(postRecipes(recipeData));
+  
+    alert("Recipe Created Successfully");
     setInput({
       name: "",
       summary: "",
       healthScore: "",
-      analyzedInstructions: "",
+      stepByStep: [{ step: "" }],
       image: "",
       typeDiets: [],
-    })
-    dispatch(postRecipes(
-      input.name,
-      input.summary,
-      input.healthScore,
-      [input.analyzedInstructions],
-      input.image,
-      input.typeDiets,
-    ))
-    history.push("/home")
-  }
+    });
+    history.push("/home");
+  };
 
   useEffect(() => {
     dispatch(getTypeDiets());
@@ -109,26 +125,22 @@ const Form = () => {
         
         <div>
           <label className={style.titles} >Image</label>
-          <input type="url" name="image" value={input.image} className={style.loadedImage} onChange={handleChange} />
+          <input type="file" accept="image/*" onChange={handleFileChange} />
           {errors.image && ( <p className={style.errors}>{errors.image}</p>
         )}
         </div>
          
         <div>
-          <label className={style.titles}>Health Score: </label>
-          <input type="range" min="1" max="100" name="healthScore" value={input.healthScore} onChange={handleChange} />
-          {" "}
-          <output id="rangevalue">{input.healthScore}</output>
-          
-          {errors.healthScore && (
-          <p className={style.errors}>{errors.healthScore}</p>
-        )}
-        </div>
+        <label className={style.titles}>Health Score: </label>
+        <input type="range" min="1" max="100" name="healthScore" value={input.healthScore} onChange={handleChange} />
+        <output id="rangevalue">{input.healthScore}</output>
+        {errors.healthScore && <p className={style.errors}>{errors.healthScore}</p>}
+      </div>
 
         <div>
-          <label className={style.titles}>Step By Step:</label>
-          <textarea type="text" name="analyzedInstructions" value={input.analyzedInstructions} maxLength="800" onChange={handleChange} />
-        </div>
+        <label className={style.titles}>Step By Step:</label>
+        <textarea type="text" name="analyzedInstructions" value={input.analyzedInstructions} maxLength="800" onChange={handleChange} />
+      </div>
 
 
         {/* <div>
@@ -161,111 +173,30 @@ const Form = () => {
           </div> */}
         <div>
   <label className={style.title}>Select Diet Types: </label>
-  <label className={style.checkbox}>
-    <input
-      onChange={handleCheckBox}
-      name="diet"
-      type="checkbox"
-      value="gluten free"
-    />
-    gluten free
-  </label>
-  <label className={style.checkbox}>
-    <input
-      onChange={handleCheckBox}
-      name="diet"
-      type="checkbox"
-      value="dairy free"
-    />
-    dairy free
-  </label>
-  <label className={style.checkbox}>
-    <input
-      onChange={handleCheckBox}
-      name="diet"
-      type="checkbox"
-      value="lacto ovo vegetarian"
-    />
-    lacto ovo vegetarian
-  </label>
-  <label className={style.checkbox}>
-    <input
-      onChange={handleCheckBox}
-      name="diet"
-      type="checkbox"
-      value="vegan"
-    />
-    vegan
-  </label>
-  <label className={style.checkbox}>
-    <input
-      onChange={handleCheckBox}
-      name="diet"
-      type="checkbox"
-      value="paleolithic"
-    />
-    paleolithic
-  </label>
-  <label className={style.checkbox}>
-    <input
-      onChange={handleCheckBox}
-      name="diet"
-      type="checkbox"
-      value="primal"
-    />
-    primal
-  </label>
-  <label className={style.checkbox}>
-    <input
-      onChange={handleCheckBox}
-      name="diet"
-      type="checkbox"
-      value="whole 30"
-    />
-    whole 30
-  </label>
-  <label className={style.checkbox}>
-    <input
-      onChange={handleCheckBox}
-      name="diet"
-      type="checkbox"
-      value="pescatarian"
-    />
-    pescatarian
-  </label>
-  <label className={style.checkbox}>
-    <input
-      onChange={handleCheckBox}
-      name="diet"
-      type="checkbox"
-      value="ketogenic"
-    />
-    ketogenic
-  </label>
-  <label className={style.checkbox}>
-    <input
-      onChange={handleCheckBox}
-      name="diet"
-      type="checkbox"
-      value="fodmap friendly"
-    />
-    fodmap friendly
-  </label>
+  {typeDiets.map((diet) => (
+    <label className={style.checkbox} key={diet}>
+      <input
+        onChange={handleCheckBox}
+        name="diet"
+        type="checkbox"
+        value={diet}
+        checked={input.typeDiets.includes(diet)}
+      />
+      {diet}
+    </label>
+  ))}
   {errors.typeDiets && <p className={style.errors}>{errors.typeDiets}</p>}
 </div>
 
-
-        <div>
-          <button type="submit" className={style.submitButton} >
-          CREATE
-        </button>
-        {errors.form && <p className={style.errors}>{errors.form}</p>}
-          </div>    
-          
-        
-      </form>
+    <div>
+      <button type="submit" className={style.submitButton}>
+        CREATE
+      </button>
+      {errors.form && <p className={style.errors}>{errors.form}</p>}
     </div>
-  )
-}
+  </form>
+</div>
+);
+};
 
 export default Form; 
