@@ -86,6 +86,8 @@ const getRecipeByID = async (id) => {
       image: recipeDb.image,
       summary: recipeDb.summary,
       healthScore: recipeDb.healthScore,
+      diets: recipeDb.diets.map((diet) => diet.name),
+
     }
   } else {
     const { data } = await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
@@ -98,10 +100,11 @@ const getRecipeByID = async (id) => {
       healthScore: data.healthScore,
       steps: data.analyzedInstructions[0]?.steps.map((step) => {
         return {
-          numer: step.number,
+          number: step.number,
           step: step.step,
         }
-      })
+      }),
+      diets:data.diets,
     }
   }
 
