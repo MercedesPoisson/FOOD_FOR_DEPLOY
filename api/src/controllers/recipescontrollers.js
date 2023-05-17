@@ -1,4 +1,4 @@
-const { Recipes } = require("../db")
+const { Recipes, Diets } = require("../db")
 require("dotenv").config();
 const axios = require("axios");
 const APIKEY = process.env.APIKEY;
@@ -76,13 +76,40 @@ const createRecipe = async (name, summary, healthScore, stepByStep, diets) => {
    return await Recipes.create({name, summary, healthScore, stepByStep, diets})
 };
 
-const getRecipeByID = async (id, source) => {
-    const recipe = 
-      source === "api" 
-      ? (await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5/${id}`)).data
-      : await Recipes.findByPk(id);
+const getRecipeByID = async (id) => {
+  if(id.includes("-")){
+    const recipeDb = await Recipes.findByPk(id, { includes : { model: Diets, attributes: ["name"],}})
+    return {
+      id: recipeDb.id,
+      name: recipeDb.name,
+      steps: recipeDb.steps,
+      image: recipeDb.image,
+      summary: recipeDb.summary,
+      healthScore: recipeDb.healthScore,
+    }
+  } else {
+    const { data } = await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
+    return {
+      id: data.id,
+      name: data.title,
+      image: data.image,
+      summary: data.summary,
+      healthScore: data.healthScore,
+      steps: data.analyzedInstructions[0]?.steps.map((step) => {
+        return {
+          numer: step.number,
+          step: step.step,
+        }
+      })
+    }
+  }
 
-    return recipe;
+    // const recipe = 
+    //   source === "api" 
+    //   ? (await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)).data
+    //   : await Recipes.findByPk(id);
+
+    // return recipe;
   };
   
 const searchRecipesByName = async (name) => {

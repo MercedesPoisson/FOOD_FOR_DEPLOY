@@ -1,34 +1,44 @@
 import style from "./Detail.module.css";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { getRecipesById } from "../../redux/actions";
-import { useDispatch} from "react-redux";
+import { useEffect } from "react";
+import { getRecipesById, cleanDetail } from "../../redux/actions";
+import { useDispatch, useSelector} from "react-redux";
 
 const Detail = () => {
-    const { id } = useParams();
     const dispatch = useDispatch();
-    const [ recipe, setRecipe ] = useState({});
+    const { id } = useParams();
 
     useEffect(() => {
-        dispatch(getRecipesById(id));
-    }, [dispatch, id]);
-    
-    if (!recipe) {
-        return <div>Cargando...</div>; // Mostrar mensaje de carga mientras se obtienen los detalles de la receta
-    }
-    
+        const loadData = async () => {
+            await dispatch(getRecipesById(id))
+        }
+        loadData()
+    }, [dispatch, id])
+
+    const data = useSelector(state => state.recipeDetail)
+    console.log(data);
+      
     return (
-        <div className={style.containerTotal}> 
-            <div className={style.containerImage}>
-                <img src={recipe.image} alt={recipe.name} />
-            </div>
-            <div className={style.containerData}>
-                <h3 className={style.name}>{recipe.name}</h3>
-                <h4>Diets: {recipe.diets}</h4>
-                <p>Summary: {recipe.summary}</p>
-            </div>
+        <div className={style.detailContainer}>
+          <div className={style.containerText}>
+            <h1>{data.name}</h1>
+            <h3>{data.healthScore}</h3>
+            <h3>{data.diets.join(', ')}</h3>
+            <h2>{data.summary}</h2>
+          </div>
+          <div className={style.containerStep}>
+            {data.instructions?.map((step, index) => (
+              <div className={style.stepContainer} key={index}>
+                <p className={style.stepNumber}>Step number: {step.number}</p>
+                <p className={style.step}>{step.step}</p>
+              </div>
+            ))}
+          </div>
+          <div className={style.containerImg}>
+            <img className={style.img} src={data.image} alt="" />
+          </div>
         </div>
-    );
-}
+      );
+     }
 
 export default Detail;
