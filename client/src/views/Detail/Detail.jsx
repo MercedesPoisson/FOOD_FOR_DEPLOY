@@ -10,7 +10,7 @@ const Detail = () => {
     const [ recipe, setRecipe ] = useState({});
 
     useEffect(() => {
-        axios(`http://localhost3001/recipes/${id}`)
+        axios(`http://localhost:3001/recipes/${id}`)
         .then(response => response.data)
         .then((data) => {
             if(data.name) {
@@ -22,15 +22,47 @@ const Detail = () => {
         return setRecipe({});        
     }, [id]);
 
+    const renderSteps = () => {
+        if (Array.isArray(recipe.steps)) {
+          return recipe.steps.map((step, index) => (
+            <div className={style.stepContainer} key={index}>
+              <p className={style.stepNumber}>Step number: {index + 1}</p>
+              <p className={style.step}>{step.step}</p>
+            </div>
+          ));
+        }
+        return null;
+      };
+
+    const renderDiets = () => {
+        if (Array.isArray(recipe.diets)) {
+            return recipe.diets.join(", ");
+        }
+        return null;
+    };
+
     return (
         <div className={style.detailContainer}>
+            <div>
+                <img className={style.img} src={recipe?.image} alt="" />
+            </div>
             <div className={style.titulo}>
                 <h1>{recipe?.name}</h1>
+                <h3>id Number: {recipe?.id}</h3>
             </div>
+            <div className={style.containerData}>
+                <p>Summary: {recipe?.summary}</p>
+                <h3>HealthScore: {recipe?.healthScore} </h3>
+                <div className={style.containerStep}>
+                    {renderSteps()}
+                </div>
+            </div>
+            <div>Diet Types: {renderDiets()}</div>
             <h1>Soy el componente Detail</h1>
         </div>
     )
 }
+
 export default Detail;
 
 // const Detail = () => {
