@@ -28,5 +28,3 @@ const getAllDiets = async (req, res) => {
 module.exports = {
     getAllDiets,
 }
-
- 

@@ -1,0 +1,30 @@
+.container {
+    position: relative;
+    z-index: 100;
+}
+
+.boton {
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color:  #FB6467FF;
+    color: white;
+    font-weight: 400;
+    margin: 10px 5px;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    border: none;
+    cursor: pointer;
+}
+
+.boton:hover {
+    background-color: rgba(251, 100, 103, 0.5);
+  }
+
+.input {
+    background-color: white;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    height: 40px;
+    
+}

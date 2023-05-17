@@ -11,14 +11,10 @@ const getRecipesHandler = async (req, res) => {
   }
 };
 
-
 const getRecipeHandler = async (req, res) => {
   const { id } = req.params;
-
-  const source = isNaN(id) ? "bdd" : "api"; // si es NaN es un UUID va a la BDD si no es NaN es numero es de la api
-  
 try {
-  const recipe = await getRecipeByID(id, source);
+  const recipe = await getRecipeByID(id);
   res.status(200).json(recipe);
 } catch (error) {
     res.status(400).json({error: error.message})

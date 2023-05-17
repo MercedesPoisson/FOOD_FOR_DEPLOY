@@ -1,0 +1,88 @@
+.loginContainer {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Agrega una columna automática para el div containerbienvenida */
+    border: 2px solid rgba(189, 194, 137, 0.5);
+    border-radius: 10px;
+    background-color: rgba(189, 194, 137, 0.1);;
+    justify-content: center;
+    align-items: right;
+    margin-left: 25px;
+    /* border-radius: 20px; */
+    padding: 10px 10px;
+    height: 180px;
+    width: 500px;
+  }
+  
+  .bienvenidaContainer {
+    padding: 20px;
+    grid-column: 1; /* Coloca el div en la primera columna */
+  }
+  .bienvenidaContainer h3 {
+    margin-top: -20px; /* Elimina el margen superior predeterminado */
+    align-self: flex-start; /* Alinea el texto al inicio del contenedor */
+    
+  }
+  
+  .loginSection {
+    padding: 20px;
+    grid-column: 2; /* Coloca el div en la segunda columna */
+    align-items: center;
+  }
+  
+  .emailContainer,
+  .passwordContainer {
+    margin-bottom: 10px;
+    
+  }
+  .emailContainer input,
+.passwordContainer input {
+  background-color: transparent;
+  border: 1px solid #BDC289;
+  border-radius: 5px;
+  
+}
+
+  .buttonContainer {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+
+  }
+  
+  .buttonlogin,
+  .buttonsignup {
+    background-color: #BDC289;
+    color: white;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .buttonlogin {
+    margin-right: 5px; /* Agrega un margen derecho para separar los botones */
+  }
+  
+  .Error {
+    color: #BDC289;
+  }
+  .formContainer {
+    margin-top: -30px;
+    margin-left: 50px;
+  }
+  .emailLabel,
+  .passwordLabel {
+    margin-bottom: 2px;
+    line-height: 15px;
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: normal;
+    text-decoration: none;
+    color: #333;
+    letter-spacing: 2px;
+  }
+
+  .member {
+    font-size: 12px;
+    font-family: sans-serif;
+  }
+
