@@ -13,7 +13,7 @@ const Card = ({ image, name, diets, id }) => {
             {/* <p>Summary:{props.summary}</p> */}
             <div className={style.dietTypes}>
               <h5 className={style.cardText}>Diets:</h5>
-              <p className={style.text}>{diets}</p>
+              <p className={style.text}>{Array.isArray(diets) ? diets.join(", ") : ''}</p>
             </div>
           </div>
           <div className={style.cardButtonContainer}>
