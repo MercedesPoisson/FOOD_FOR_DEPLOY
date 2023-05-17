@@ -24,7 +24,13 @@ const rootReducer = (state = initialState, action) => {
     case GET_RECIPES:
       return { ...state, recipes: action.payload, allRecipes: action.payload };
     case GET_BY_NAME:
-      return { ...state, recipes: action.payload };
+      const filteredRecipesByName = action.payload.map((recipe) => {
+        return {
+          ...recipe,
+          diets: state.allRecipes.find((r) => r.id === recipe.id)?.diets || [],
+        };
+      });
+      return { ...state, recipes: filteredRecipesByName };
     case GET_BY_ID:
       return { ...state, detail: action.payload };
     case CLEAN_DETAIL:
