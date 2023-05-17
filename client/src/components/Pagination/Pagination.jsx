@@ -54,7 +54,7 @@ const Pagination = ({ recipesPerPage, allRecipes, paginado }) => {
   };
   // agregue iconos de react icons
   return (
-    <nav>
+    <nav className={style.pagination}>
       <ul className={style.ul}>
         <li>
           <a className={style.container} onClick={goToPreviousPage}>

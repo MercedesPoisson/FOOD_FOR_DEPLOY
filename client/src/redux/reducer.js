@@ -71,7 +71,7 @@ const rootReducer = (state = initialState, action) => {
         if (a.healthScore > b.healthScore) return -1
         return 0;
       })
-      return { ...state, filtererecdRecipes: orderByScore }
+      return { ...state, filteredRecipes: orderByScore }
       
     default:
       return state;

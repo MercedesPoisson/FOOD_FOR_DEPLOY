@@ -2,27 +2,31 @@ import React from "react";
 import style from "./Card.module.css";
 import { Link } from "react-router-dom";
 
-const Card = ({ image, name, diets, id}) => {
-
-    return(
+const Card = ({ image, name, diets, id }) => {
+  return (
+    <div className={style.grid}>
+      <div className={style.gridItem}>
         <div className={style.card}>
-            <img src={image} alt={name} />
-            <Link to={`/recipes/${id}`} className={style.linkName}>
+          <img src={image} alt={name} className={style.img} />
+          <div className={style.cardContent}>
             <h3 className={style.name}>{name}</h3>
-            </Link>
             {/* <p>Summary:{props.summary}</p> */}
-            <div>
-                <h5 className={style.dietsTitle}>Diets:
-                </h5>
-                {diets}
+            <div className={style.dietTypes}>
+              <h5 className={style.cardText}>Diets:</h5>
+              <p className={style.text}>{diets}</p>
             </div>
-            
-            {/* <p>HealthScore:{healthScore}</p> */}
-            
-
+          </div>
+          <div className={style.cardButtonContainer}>
+            <Link to={`/recipes/${id}`} className={style.linkName}>
+            <button className={style.cardButton}>Learn More<span>&rarr;</span></button>
+          </Link>
+          </div>
+          
+          {/* <p>HealthScore:{healthScore}</p> */}
         </div>
-    )
-} 
+      </div>
+    </div>
+  );
+};
 
 export default Card;
-

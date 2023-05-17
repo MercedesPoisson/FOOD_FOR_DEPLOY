@@ -1,4 +1,147 @@
-.card {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300;1,400;1,500&family=Quattrocento+Sans:wght@700&family=Rubik+Dirt&family=Share+Tech+Mono&display=swap');
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  background-color: #eee;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+}
+.grid{
+  display: flex;
+  justify-content: center;
+  width: 30em;
+  grid-gap: 6rem;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  align-items: start;
+}
+
+.gridItem {
+  background-color: #fff;
+  border-radius: 0.4rem;
+  overflow: hidden;
+  box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1);
+  /* cursor: pointer; */
+  transition: 0.2s;
+  width: 300px;
+  margin: 0 1rem;  
+  height: 400px;
+  position: relative;
+}
+
+.gridItem:hover {
+  transform: translateY(-0.5%);
+  box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.5);
+}
+
+.img {
+  display: block;
+  width: 100%;
+  height: 20rem;
+  object-fit: cover;
+}
+
+.cardContent {
+  padding: 10px;
+}
+.name {
+  /* Estilos para ajustar el texto a dos líneas en la tarjeta */
+  font-size: 15px;
+  font-weight: 500;
+  overflow: hidden;
+  color: #0d0d0d;
+  margin-bottom: 1.5rem;
+  /* text-overflow: ellipsis; */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  /* cursor: pointer; */
+  /* margin-bottom: -20px; Agrega margen inferior para reducir el interlineado */
+}
+.cardText {
+  font-size: 1.4rem;
+  letter-spacing: 0.1rem;
+  line-height: 1.7;
+  color: #3d3d3d;
+  margin-bottom: 2.rem;
+}
+
+.text {
+  font-size: 1.2rem;
+  letter-spacing: 0.1rem;
+  line-height: 1.7;
+}
+.cardButton {
+  display:block;
+  width: 100%;
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #3d3d3d;
+  background-color:rgba(150, 163, 104, 0.4);
+  border: none;
+  border-radius: 0.4rem;
+  transition: 0.2s;
+  cursor: pointer;
+  letter-spacing: 0.1rem;
+  }
+
+  .cardButtonContainer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem;
+  }
+  
+  .cardButton span {
+    margin-left: 1rem;
+    transition: 0.2s;
+  }
+
+  .cardButton:hover,
+  .cardButton:active {
+    background-color: rgba(150, 163, 104, 0.2);
+  }
+
+  .cardButton:hover span,
+  .cardButton:active span {
+    margin-left: 1.5rem;
+  }
+  .linkName {
+    text-decoration: none;
+  }
+  .linkName:hover {
+    text-decoration: none;
+  }
+  
+  @media only screen and (max-width: 60em) {
+    body {
+      padding: 3rem;
+    }
+    .grid {
+      grid-gap: 3rem;
+    }
+  }
+
+
+
+
+/* .card {
   border: 1px solid #96a368;
   width: 250px;
   height: 350px;
@@ -6,6 +149,8 @@
   margin-right: 10px;
   margin-bottom: 10px;
 }
+
+
 
 .linkName {
   color: black;
@@ -24,22 +169,13 @@
   object-fit: cover;
 }
 
-.name {
-  /* Estilos para ajustar el texto a dos líneas en la tarjeta */
-  font-size: 16px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  white-space: normal;
-  cursor: pointer;
-  margin-bottom: -20px; /* Agrega margen inferior para reducir el interlineado */
-}
-
 .dietsTitle,
 .labelHealthScore {
-  margin-top: 10px;
+  margin-top: 0px;
   margin-bottom: 10px;
   font-weight: normal; /* Agrega margen superior para reducir el interlineado */
-}
+  /* font-size: 14px; */
+/* } */
+/* .dietTypes {
+  font-size: 14px;
+} */

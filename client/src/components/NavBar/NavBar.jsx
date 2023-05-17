@@ -28,7 +28,7 @@ const NavBar = ({getRecipesByName}) => {
           <div className={style.navElements}>
             <div className={`${style.section} ${style.rightSection}`}>
               <ul className={style.navLinks}>
-                <li><Link to="/home">HOME</Link></li>
+                <li><a href="/home">HOME</a></li>
                 <li><Link to="/create">CREATE</Link></li>
                 <li><Link to="/">LOGOUT</Link></li>
               </ul>
@@ -52,6 +52,6 @@ const NavBar = ({getRecipesByName}) => {
     </nav>
   );
 };
-  // ------ uso connect para acceder a la accion como una propo y llamarla en la funcion onSearch. Facilita la ionteraccion con el store y la ejecucion de la acciones
+  // ------ uso connect para acceder a la accion como una prop y llamarla en la funcion onSearch. Facilita la ionteraccion con el store y la ejecucion de la acciones
   // es como usar useDispatch pero cuando uso este hook en mi componente se me buguea
   export default connect(null, { getRecipesByName })(NavBar);

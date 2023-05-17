@@ -92,7 +92,7 @@ const Form = () => {
   }, [dispatch]);
 
   return(
-    <div>
+    <div className={style.containerTotal}>
       <Link to= "/home"><button className={style.buttonBack}><BsArrowLeftCircle/> BACK</button></Link>
       <h1 className={style.titulo}>add your own recipe </h1>
       <form onSubmit={handleSubmit} className={style.formContainer} name="form">
