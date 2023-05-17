@@ -64,20 +64,15 @@ const rootReducer = (state = initialState, action) => {
       });
       return { ...state, recipes: sortedRecipes };
 
-    case ORDER_BY_SCORE:
-      let orderByScore = [ ...state.filteredRecipes]
-      orderByScore = action.payload === "ascendent" ?
-      orderByScore.sort((a,b) => {
-        if (a.healthScore < b.healthScore) return -1
-        if (a.healthScore > b.healthScore) return 1
-        return 0;
-      }) :
-      orderByScore.sort((a,b) => {
-        if (a.healthScore < b.healthScore) return 1
-        if (a.healthScore > b.healthScore) return -1
-        return 0;
-      })
-      return { ...state, filteredRecipes: orderByScore }
+      case ORDER_BY_SCORE:
+        const orderedRecipes = [...state.recipes].sort((a, b) => {
+          if (action.payload === "ascendent") {
+            return a.healthScore - b.healthScore;
+          } else {
+            return b.healthScore - a.healthScore;
+          }
+        });
+        return { ...state, recipes: orderedRecipes };
       
     default:
       return state;
