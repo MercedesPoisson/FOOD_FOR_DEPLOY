@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getTypeDiets, postRecipes } from "../../redux/actions";
+import { getTypeDiets, postRecipes, postDiets } from "../../redux/actions";
 import style from "./Form.module.css";
 import validation from "./Validation";
 import { BsArrowLeftCircle } from "react-icons/bs";
@@ -26,7 +26,7 @@ const Form = () => {
     healthScore: "",
     analyzedInstructions: "",
     image: "",
-    typeDiets: "",
+    typeDiets: [],
   });
 
   const handleChange = (event) => {
@@ -73,7 +73,7 @@ const Form = () => {
       name: input.name,
       summary: input.summary,
       healthScore: input.healthScore,
-      analyzedInstructions: input.analyzedInstructions.map((stepObj) => stepObj.step), // Agregar esta línea
+      analyzedInstructions: input.analyzedInstructions.map((stepObj) => stepObj.step), 
       image: input.image,
       typeDiets: input.typeDiets,
     };
@@ -166,7 +166,7 @@ const Form = () => {
             type="text"
             name="stepByStep"
             value={input.analyzedInstructions.map((stepObj) => stepObj.step).join("\n")}
-            maxLength="800"
+            maxLength="1200"
             onChange={handleStepChange}
 />
         </div>

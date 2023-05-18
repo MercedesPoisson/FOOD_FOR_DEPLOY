@@ -72,23 +72,45 @@ const getAllRecipes = async () => {
         }
     })
 
-const createRecipe = async (name, summary, healthScore, stepByStep, diets, image, created) => {
-   return await Recipes.create({name, summary, healthScore, stepByStep, diets, image, created})
+    const createRecipe = async (name, summary, healthScore, stepByStep, diets, image, created) => {
+  try {
+    // Crear la receta
+    const newRecipe = await Recipes.create({ name, summary, healthScore, stepByStep: stepByStep.steps, image, created });
+
+    // Validar que diets sea un array de nombres de dieta
+    if (Array.isArray(diets) && diets.length > 0) {
+      // Obtener los objetos de dieta correspondientes por nombre
+      const dietObjects = await Diets.findAll({ where: { name: diets } });
+
+      // Establecer la relación entre la receta y los tipos de dieta
+      await newRecipe.addDiets(dietObjects);
+    }
+
+    return newRecipe;
+  } catch (error) {
+    throw new Error("Error creating recipe");
+  }
 };
 
-const getRecipeByID = async (id) => {
-  if(id.includes("-")){
-    const recipeDb = await Recipes.findByPk(id, { includes : { model: Diets, attributes: ["name"],}})
-    return {
-      id: recipeDb.id,
-      name: recipeDb.name,
-      steps: recipeDb.steps,
-      image: recipeDb.image,
-      summary: recipeDb.summary,
-      healthScore: recipeDb.healthScore,
-      diets: recipeDb.diets.map((diet) => diet.name),
-
-    }
+    const getRecipeByID = async (id) => {
+      if (id.includes("-")) {
+        const recipeDb = await Recipes.findByPk(id, {
+          include: { model: Diets, attributes: ["name"] },
+        });
+    
+        if (!recipeDb) {
+          throw new Error("Recipe not found");
+        }
+    
+        return {
+          id: recipeDb.id,
+          name: recipeDb.name,
+          steps: recipeDb.stepByStep,
+          image: recipeDb.image,
+          summary: recipeDb.summary,
+          healthScore: recipeDb.healthScore,
+          diets: recipeDb.diets.map((diet) => diet.name),
+        };
   } else {
     const { data } = await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
     // const { data } = await axios(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5/${id}`)
@@ -102,13 +124,12 @@ const getRecipeByID = async (id) => {
         return {
           number: step.number,
           step: step.step,
-        }
+        };
       }),
-      diets:data.diets,
-    }
+      diets: data.diets,
+    };
   }
-
-  };
+};
   
 const searchRecipesByName = async (name) => {
     if (!name) {

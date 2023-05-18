@@ -11,7 +11,8 @@ export const API_RECIPES = "API_RECIPES";
 export const FILTER_BY_SOURCE = "FILTER_BY_SOURCE";
 export const SORT_RECIPES = "SORT_RECIPES";
 export const ORDER_BY_SCORE = "ORDER_BY_SCORE";
-export const POST_RECIPE = "POST_RECIPE"
+export const POST_RECIPE = "POST_RECIPE";
+export const POST_DIETS = "POST_DIETS";
 
 export const getRecipes = () => {
   return async function (dispatch) {
@@ -99,3 +100,11 @@ export const postRecipes = (payload) => {
     return apiData;
   };
 };
+
+// export const postDiets = (recipeId, diets) => {
+//   return async function (dispatch) {
+//     const data = { recipeId, diets };
+//     const apiData = await axios.post('http://localhost:3001/recipeDiet', data);
+//     return apiData;
+//   };
+// };

@@ -1,3 +1,5 @@
+const { Recipes, Diets } = require("../db");
+
 const { createRecipe, getRecipeByID, getAllRecipes, searchRecipesByName } = require("../controllers/recipescontrollers")
 
 
@@ -24,12 +26,25 @@ try {
 };
 
 const postRecipeHandler = async (req, res) => {
-  const { name, summary, healthScore, stepByStep, diets, image } = req.body;
+  const { name, summary, healthScore, stepByStep, diets, image, created } = req.body;
   try {
-    const newRecipe = await createRecipe(name, summary, healthScore, stepByStep, diets, image);
+    const newRecipe = await createRecipe(name, summary, healthScore, { steps: stepByStep }, diets, image, created);
+
+    // Obtener el ID de la receta recién creada
+    const recipeId = newRecipe.id;
+
+    // Validar que diets sea un array de nombres de dieta
+    if (Array.isArray(diets) && diets.length > 0) {
+      // Obtener los objetos de dieta correspondientes por nombre
+      const dietObjects = await Diets.findAll({ where: { name: diets } });
+
+      // Establecer las relaciones entre la receta y los tipos de dieta
+      await newRecipe.addDiets(dietObjects);
+    }
+
     res.status(201).json(newRecipe);
   } catch (error) {
-    res.status(400).json({error: error.message});    
+    res.status(400).json({ error: error.message });    
   }    
 };
 

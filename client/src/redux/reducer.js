@@ -32,8 +32,7 @@ const rootReducer = (state = initialState, action) => {
     case CLEAN_DETAIL:
       return { ...state, detail: {} };
     case GET_TYPE_DIETS:
-      return { ...state, typeDiets: action.payload };
-      
+      return { ...state, typeDiets: action.payload };      
     case FILTER_BY_DIET:
       const selectedDietType = action.payload;
       const recipesFilter = selectedDietType === "All Diet Types"
@@ -41,7 +40,7 @@ const rootReducer = (state = initialState, action) => {
         : state.allRecipes.filter(recipe => recipe.diets && recipe.diets.includes(selectedDietType));
       return { ...state, recipes: recipesFilter, isFiltered: true };
 
-      case "POST_DIETS":
+      case "POST_RECIPES":
         return { ...state };
       case FILTER_BY_SOURCE:
         const { filteredRecipes, source: selectedSource } = action.payload;
@@ -50,6 +49,8 @@ const rootReducer = (state = initialState, action) => {
           recipes: filteredRecipes,
           source: selectedSource
         };
+      // case "POST_DIETS":
+      //   return {...state};
     case SORT_RECIPES:
       const sortedRecipes = [...state.recipes].sort((a, b) => {
         const nameA = a.name.toLowerCase();
