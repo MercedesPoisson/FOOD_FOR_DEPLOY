@@ -37,21 +37,14 @@ const Form = () => {
   };
 
   const handleCheckBox = (event) => {
-  const { value, checked } = event.target;
-  setInput((prevInput) => {
-    if (checked) {
-      return {
-        ...prevInput,
-        typeDiets: [...prevInput.typeDiets, value],
-      };
+    if (event.target.checked) {
+      setInput({...input, typeDiets: [...input.typeDiets, event.target.value]})
     } else {
-      return {
-        ...prevInput,
-        typeDiets: prevInput.typeDiets.filter((diet) => diet !== value),
+      setInput({
+        ...input, typeDiets: [...input.typeDiets] 
+      })
       };
     }
-  });
-};
 
   const handleStepChange = (event) => {
     const steps = event.target.value.split("\n");
@@ -61,34 +54,26 @@ const Form = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const formErrors = validation(input);
-    if (Object.keys(formErrors).length > 0) {
-      setErrors(formErrors);
-      return;
-    }
-  
-    const recipeData = {
-      name: input.name,
-      summary: input.summary,
-      healthScore: input.healthScore,
-      analyzedInstructions: input.analyzedInstructions.map((stepObj) => stepObj.step), 
-      image: input.image,
-      typeDiets: input.typeDiets,
-    };
-  
-    dispatch(postRecipes(recipeData));
-  
-    alert("Recipe Created Successfully");
     setInput({
       name: "",
-      summary: "",
-      healthScore: "",
-      analyzedInstructions: [{ step: "" }],
+      summary: "", 
+      healthScore: 0,
+      analyzedInstructions: input.analyzedInstructions.map((stepObj) => stepObj.step),
       image: "",
-      typeDiets: [],
-    });
+      typeDiets: [],      
+    })
+    dispatch(
+      postRecipes(
+      input.name,
+      input.summary,
+      input.healthScore,
+      input.analyzedInstructions.map((stepObj) => stepObj.step), 
+      input.image,
+      input.typeDiets,
+      )
+    )
     history.push("/home");
   };
 

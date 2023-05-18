@@ -94,12 +94,25 @@ export const getTypeDiets = () => {
   };
 };
 
-export const postRecipes = (payload) => {
-  return async function (dispatch) {
-    const apiData = await axios.post(`http://localhost:3001/recipes`, payload);
-    return apiData;
-  };
-};
+export const postRecipes = (name, healthScore, summary, stepByStep, image, diets) => {
+  return async (dispatch) => {
+    try {
+      const dataPost = await axios.post("http://localhost:3001/recipes",  { name, healthScore, summary, stepByStep, image, diets });
+      alert("Recipe created successfully");
+      return dispatch({type: POST_RECIPE, payload: dataPost.data})
+    } catch (error) {
+      alert("We couldnt create your recipe");
+      console.log("error en postRecipe")      
+    }
+  }
+}
+
+// export const postRecipes = (payload) => {
+//   return async function (dispatch) {
+//     const apiData = await axios.post(`http://localhost:3001/recipes`, payload);
+//     return apiData;
+//   };
+// };
 
 // export const postDiets = (recipeId, diets) => {
 //   return async function (dispatch) {

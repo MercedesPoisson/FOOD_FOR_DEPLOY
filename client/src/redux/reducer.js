@@ -7,7 +7,8 @@ import {
   FILTER_BY_DIET,
   FILTER_BY_SOURCE,
   SORT_RECIPES,
-  ORDER_BY_SCORE, 
+  ORDER_BY_SCORE,
+  POST_RECIPE
   } from "./actions";
 
 const initialState = {
@@ -41,7 +42,7 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, recipes: recipesFilter, isFiltered: true };
 
       case "POST_RECIPES":
-        return { ...state };
+        return { ...state, allRecipes: [...state.allRecipes, action.payload] };
       case FILTER_BY_SOURCE:
         const { filteredRecipes, source: selectedSource } = action.payload;
         return {
