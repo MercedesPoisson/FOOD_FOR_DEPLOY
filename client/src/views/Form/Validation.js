@@ -7,8 +7,6 @@ const validation = (input) => {
       errors.summary = '! summary  is required';
     } else if (!input.healthScore) {
       errors.healthScore = '! healthScore  is required';
-    } else if (!input.healthScore) {
-      errors.healthScore = '! healthScore  is required';
     } else if (!input.image) {
       errors.image = '! Image  is required';
     } else if (!input.name || !input.summary || !input.healthScore || !input.typeDiets || !input.image) {
