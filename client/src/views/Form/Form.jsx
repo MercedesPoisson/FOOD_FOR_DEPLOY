@@ -15,7 +15,7 @@ const Form = () => {
     name: "",
     summary: "",
     healthScore: "",
-    analyzedInstructions: "",
+    analyzedInstructions: [{ step: "" }],
     image: "",
     typeDiets: [],
   });
@@ -37,17 +37,28 @@ const Form = () => {
   };
 
   const handleCheckBox = (event) => {
-    if (event.target.checked) {
-      setInput({
-        ...input,
-        typeDiets: [...input.typeDiets, event.target.value],
-      });
+  const { value, checked } = event.target;
+  setInput((prevInput) => {
+    if (checked) {
+      return {
+        ...prevInput,
+        typeDiets: [...prevInput.typeDiets, value],
+      };
     } else {
-      setInput({
-        ...input,
-        typeDiets: [...input.typeDiets],
-      });
+      return {
+        ...prevInput,
+        typeDiets: prevInput.typeDiets.filter((diet) => diet !== value),
+      };
     }
+  });
+};
+
+  const handleStepChange = (event) => {
+    const steps = event.target.value.split("\n");
+    setInput({
+      ...input,
+      analyzedInstructions: steps.map((step) => ({ step })),
+    });
   };
 
   const handleSubmit = (event) => {
@@ -57,14 +68,24 @@ const Form = () => {
       setErrors(formErrors);
       return;
     }
-
-    dispatch(postRecipes(input));
+  
+    const recipeData = {
+      name: input.name,
+      summary: input.summary,
+      healthScore: input.healthScore,
+      analyzedInstructions: input.analyzedInstructions.map((stepObj) => stepObj.step), // Agregar esta línea
+      image: input.image,
+      typeDiets: input.typeDiets,
+    };
+  
+    dispatch(postRecipes(recipeData));
+  
     alert("Recipe Created Successfully");
     setInput({
       name: "",
       summary: "",
       healthScore: "",
-      analyzedInstructions: "",
+      analyzedInstructions: [{ step: "" }],
       image: "",
       typeDiets: [],
     });
@@ -143,11 +164,11 @@ const Form = () => {
           <label className={style.titles}>Step By Step:</label>
           <textarea
             type="text"
-            name="analyzedInstructions"
-            value={input.analyzedInstructions}
+            name="stepByStep"
+            value={input.analyzedInstructions.map((stepObj) => stepObj.step).join("\n")}
             maxLength="800"
-            onChange={handleChange}
-          />
+            onChange={handleStepChange}
+/>
         </div>
 
         <div>

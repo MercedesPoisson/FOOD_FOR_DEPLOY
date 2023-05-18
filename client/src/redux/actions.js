@@ -26,9 +26,14 @@ export const getRecipesByName = (name) => {
     try {
       const apiData = await axios.get(`http://localhost:3001/recipes?name=${name}`);
       const recipesByName = apiData.data;
-      dispatch({ type: GET_BY_NAME, payload: recipesByName });
+      
+      // Convertir la entrada de búsqueda y los nombres de las recetas a minúsculas
+      const searchTerm = name.toLowerCase();
+      const filteredRecipes = recipesByName.filter(recipe => recipe.name.toLowerCase().includes(searchTerm));
+      
+      dispatch({ type: GET_BY_NAME, payload: filteredRecipes });
     } catch (error) {
-      return dispatch({ type: GET_BY_NAME, payload: []})
+      return dispatch({ type: GET_BY_NAME, payload: []});
     }    
   };
 };

@@ -4,10 +4,12 @@ const { createRecipe, getRecipeByID, getAllRecipes, searchRecipesByName } = requ
 const getRecipesHandler = async (req, res) => {
   const { name } = req.query;
   try {
-    const response = await searchRecipesByName(name); 
+    const response = await searchRecipesByName(name);
     res.status(200).json(response);
   } catch (error) {
-    res.status(400).json({ error: error.message, descripcion: 'No available recipes.' });
+    res
+      .status(400)
+      .json({ error: error.message, description: 'No available recipes.' });
   }
 };
 
