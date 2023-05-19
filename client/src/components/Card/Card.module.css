@@ -9,6 +9,7 @@
 html {
   box-sizing: border-box;
   font-size: 62.5%;
+  
 }
 
 body {
@@ -17,7 +18,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+   min-height: 100vh;
+  
 
 }
 .grid{
@@ -27,6 +29,7 @@ body {
   grid-gap: 6rem;
   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   align-items: start;
+  
 }
 
 .gridItem {
@@ -40,6 +43,7 @@ body {
   margin: 0 1rem;  
   height: 400px;
   position: relative;
+  
 }
 
 .gridItem:hover {

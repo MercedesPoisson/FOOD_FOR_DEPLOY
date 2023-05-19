@@ -38,10 +38,10 @@ const rootReducer = (state = initialState, action) => {
       const selectedDietType = action.payload;
       const recipesFilter = selectedDietType === "All Diet Types"
         ? [...state.allRecipes]
-        : state.allRecipes.filter(recipe => recipe.diets && recipe.diets.includes(selectedDietType));
+        : state.recipes.filter(recipe => recipe.diets && recipe.diets.includes(selectedDietType));
       return { ...state, recipes: recipesFilter, isFiltered: true };
 
-      case "POST_RECIPES":
+      case "POST_RECIPE":
         return { ...state, allRecipes: [...state.allRecipes, action.payload] };
       case FILTER_BY_SOURCE:
         const { filteredRecipes, source: selectedSource } = action.payload;
@@ -50,9 +50,7 @@ const rootReducer = (state = initialState, action) => {
           recipes: filteredRecipes,
           source: selectedSource
         };
-      // case "POST_DIETS":
-      //   return {...state};
-    case SORT_RECIPES:
+     case SORT_RECIPES:
       const sortedRecipes = [...state.recipes].sort((a, b) => {
         const nameA = a.name.toLowerCase();
         const nameB = b.name.toLowerCase();
@@ -63,14 +61,30 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, recipes: sortedRecipes };
 
       case ORDER_BY_SCORE:
-        const orderedRecipes = [...state.recipes].sort((a, b) => {
-          if (action.payload === "ascendent") {
-            return a.healthScore - b.healthScore;
-          } else {
-            return b.healthScore - a.healthScore;
-          }
-        });
-        return { ...state, recipes: orderedRecipes };
+  let orderedRecipes = [...state.filteredRecipes];
+  
+  if (orderedRecipes.every(recipe => typeof recipe.healthScore === "number")) {
+    // Todos los valores de healthScore son números, realizar el ordenamiento directamente
+    orderedRecipes.sort((a, b) => {
+      if (a.healthScore < b.healthScore) return action.payload === "ascendent" ? -1 : 1;
+      if (a.healthScore > b.healthScore) return action.payload === "ascendent" ? 1 : -1;
+      return 0;
+    });
+  } else {
+    // Al menos un valor de healthScore no es un número, realizar la conversión y luego el ordenamiento
+    orderedRecipes = orderedRecipes.map(recipe => {
+      const healthScore = typeof recipe.healthScore === "number" ? recipe.healthScore : parseInt(recipe.healthScore);
+      return { ...recipe, healthScore };
+    });
+
+    orderedRecipes.sort((a, b) => {
+      if (a.healthScore < b.healthScore) return action.payload === "ascendent" ? -1 : 1;
+      if (a.healthScore > b.healthScore) return action.payload === "ascendent" ? 1 : -1;
+      return 0;
+    });
+  }
+
+  return { ...state, filteredRecipes: orderedRecipes };
       
     default:
       return state;

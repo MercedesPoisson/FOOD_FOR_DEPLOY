@@ -74,7 +74,7 @@ const Filters = () => {
       </div>
 
       <div className={style.filterContainer}>
-        <select onChange={(event) => handleSortScoreChange(event.target.value)}>
+        <select onChange={handleSortScoreChange}>
           <option value="order" disabled="disabled">Health Score</option>
           <option value={"ascendent"}>Higher</option>
           <option value={"descendent"}>Lower</option>

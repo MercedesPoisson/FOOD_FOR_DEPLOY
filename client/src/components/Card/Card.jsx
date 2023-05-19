@@ -3,6 +3,7 @@ import style from "./Card.module.css";
 import { Link } from "react-router-dom";
 
 const Card = ({ image, name, diets, id }) => {
+  console.log("diets:", diets);
   return (
     <div className={style.grid}>
       <div className={style.gridItem}>

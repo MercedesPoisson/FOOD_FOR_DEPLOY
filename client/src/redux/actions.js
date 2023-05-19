@@ -82,8 +82,8 @@ export const sortRecipes = (payload) => {
   return { type: SORT_RECIPES, payload: payload };
 };
 
-export const sortByScore = (payload) => {
-  return { type: ORDER_BY_SCORE, payload: payload };
+export const sortByScore = (order) => {
+  return { type: ORDER_BY_SCORE, payload: order };
 };
 
 export const getTypeDiets = () => {

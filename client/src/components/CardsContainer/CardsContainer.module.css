@@ -1,6 +1,6 @@
 .container {
-    position: fixed;
-    top: 125px;
+    position: relative;
+    top: 100px;
     left: 0;
     right: 0;
     display: flex;
@@ -9,7 +9,11 @@
     border-radius: 15px;
     flex-wrap: wrap;
     margin-top: 10px;
-    align-items: center;
+    align-items: flex-start;
+    /* align-items: center; */
+  
+    
+    /* overflow: auto; */
 }
 
 .cardsContainer {

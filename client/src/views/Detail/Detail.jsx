@@ -27,7 +27,7 @@ const Detail = () => {
           return recipe.steps.map((step, index) => (
             <div className={style.stepContainer} key={index}>
               <p className={style.stepNumber}>Step number: {index + 1}</p>
-              <p className={style.step}>{step.step}</p>
+              <p className={style.step}>{step}</p>
             </div>
           ));
         }
