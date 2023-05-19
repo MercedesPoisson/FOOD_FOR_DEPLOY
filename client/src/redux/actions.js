@@ -25,17 +25,23 @@ export const getRecipes = () => {
 export const getRecipesByName = (name) => {
   return async function (dispatch) {
     try {
-      const apiData = await axios.get(`http://localhost:3001/recipes?name=${name}`);
-      const recipesByName = apiData.data;
-      
+      const apiData = await axios.get(`http://localhost:3001/recipes`);
+      const allRecipes = apiData.data;
+
       // Convertir la entrada de búsqueda y los nombres de las recetas a minúsculas
       const searchTerm = name.toLowerCase();
-      const filteredRecipes = recipesByName.filter(recipe => recipe.name.toLowerCase().includes(searchTerm));
-      
-      dispatch({ type: GET_BY_NAME, payload: filteredRecipes });
+      const filteredRecipes = allRecipes.filter(recipe => recipe.name.toLowerCase().includes(searchTerm));
+
+      if (filteredRecipes.length > 0) {
+        dispatch({ type: GET_BY_NAME, payload: filteredRecipes });
+      } else {
+        dispatch({ type: GET_BY_NAME, payload: [] });
+        // Enviar un mensaje de error cuando no se encuentran recetas
+        alert('No se encontraron recetas con el nombre especificado');
+      }
     } catch (error) {
-      return dispatch({ type: GET_BY_NAME, payload: []});
-    }    
+      return dispatch({ type: GET_BY_NAME, payload: [] });
+    }
   };
 };
 
@@ -94,10 +100,10 @@ export const getTypeDiets = () => {
   };
 };
 
-export const postRecipes = (name, healthScore, summary, stepByStep, image, diets) => {
+export const postRecipes = (name, summary, healthScore, stepByStep, image, diets) => {
   return async (dispatch) => {
     try {
-      const dataPost = await axios.post("http://localhost:3001/recipes",  { name, healthScore, summary, stepByStep, image, diets });
+      const dataPost = await axios.post("http://localhost:3001/recipes",  { name, summary, healthScore, stepByStep, image, diets });
       alert("Recipe created successfully");
       return dispatch({type: POST_RECIPE, payload: dataPost.data})
     } catch (error) {

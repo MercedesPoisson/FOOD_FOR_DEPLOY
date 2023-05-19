@@ -5,7 +5,6 @@ import Foto2 from "./Foto2.jpg";
 import Foto3 from "./Foto3.jpg";
 import Login from "./Login";
 // import axios from "axios";
-
 import { Link } from 'react-router-dom';
 
 const Landing = () => {
@@ -70,6 +69,14 @@ const Landing = () => {
           <Link to="/home" className={style.linkButton}>
             <span>BE MY GUEST</span>
           </Link>
+<br/>
+          {/* <div>
+            <button className={style.loginButton}>LOGIN</button>
+            </div>
+            <div>
+               <button className={style.registerButton}>REGISTER</button>
+            </div> */}
+                     
         </div>
       </div>
 

@@ -13,9 +13,12 @@ const Home = ( ) => {
     useEffect(() => {
         dispatch(getRecipes());
     },[dispatch]);
+    
 
     //-------PAGINADO------
     const recipes = useSelector((state) => state.recipes);
+
+    console.log("Recipes:", recipes)
     const recipesPerPage = 9;
     const [ currentPage, setCurrentPage ] = useState(1);
 
@@ -28,17 +31,25 @@ const Home = ( ) => {
     
     return (
         <> 
-        <NavBar />
-        <Filters />
-        <CardsContainer recipes={currentRecipes} />
-       
-        <Pagination
-        recipesPerPage={recipesPerPage}
-        allRecipes={recipes.length} // Número total de recetas
-        paginado={pagination}
-      />
+          <NavBar />
+    
+          <div className="home-container">
+            <div className="filters-container">
+              <Filters />
+            </div>
+    
+            <div className="cards-container">
+              <CardsContainer recipes={currentRecipes} />
+            </div>
+          </div>
+    
+          <Pagination
+            recipesPerPage={recipesPerPage}
+            allRecipes={recipes.length}
+            paginado={pagination}
+          />
         </> 
-    );
-};
+      );
+    };
 
 export default Home; 

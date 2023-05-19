@@ -61,8 +61,8 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, recipes: sortedRecipes };
 
       case ORDER_BY_SCORE:
-  let orderedRecipes = [...state.filteredRecipes];
-  
+  let orderedRecipes = [...state.recipes];
+
   if (orderedRecipes.every(recipe => typeof recipe.healthScore === "number")) {
     // Todos los valores de healthScore son números, realizar el ordenamiento directamente
     orderedRecipes.sort((a, b) => {
@@ -84,7 +84,7 @@ const rootReducer = (state = initialState, action) => {
     });
   }
 
-  return { ...state, filteredRecipes: orderedRecipes };
+  return { ...state, recipes: orderedRecipes };
       
     default:
       return state;

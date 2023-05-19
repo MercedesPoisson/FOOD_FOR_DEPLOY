@@ -36,6 +36,10 @@ const Form = () => {
     );
   };
 
+  const handleSummaryChange = (event) => {
+    setInput({ ...input, summary: event.target.value });
+  };
+
   const handleCheckBox = (event) => {
     if (event.target.checked) {
       setInput({...input, typeDiets: [...input.typeDiets, event.target.value]})
@@ -56,24 +60,36 @@ const Form = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+  
+    const updatedInput = {
+      name: input.name,
+      summary: input.summary,
+      healthScore: input.healthScore,
+      analyzedInstructions: input.analyzedInstructions.map((stepObj) => stepObj.step),
+      image: input.image,
+      typeDiets: input.typeDiets,
+    };
+
+    console.log("Datos de la receta:", updatedInput);
+  
+    dispatch(postRecipes(
+      updatedInput.name,
+      updatedInput.summary,
+      updatedInput.healthScore,
+      updatedInput.analyzedInstructions,
+      updatedInput.image,
+      updatedInput.typeDiets
+    ));
+  
     setInput({
       name: "",
-      summary: "", 
-      healthScore: 0,
-      analyzedInstructions: input.analyzedInstructions.map((stepObj) => stepObj.step),
+      summary: "",
+      healthScore: "",
+      analyzedInstructions: [{ step: "" }],
       image: "",
-      typeDiets: [],      
-    })
-    dispatch(
-      postRecipes(
-      input.name,
-      input.summary,
-      input.healthScore,
-      input.analyzedInstructions.map((stepObj) => stepObj.step), 
-      input.image,
-      input.typeDiets,
-      )
-    )
+      typeDiets: [],
+    });
+  
     history.push("/home");
   };
 
@@ -102,16 +118,17 @@ const Form = () => {
         </div>
 
         <div>
-          <label className={style.titles}>Summary:</label>
-          <input
-            type="text"
-            name="summary"
-            value={input.summary}
-            autoComplete="off"
-            maxLength="800"
-            onChange={handleChange}
-          />
-        </div>
+        <label className={style.titles}>Summary:</label>
+        <input
+          type="text"
+          name="summary"
+          value={input.summary}
+          autoComplete="off"
+          maxLength="800"
+          onChange={handleSummaryChange}
+        />
+        {errors.summary && <p className={style.errors}>{errors.summary}</p>}
+      </div>
 
         <div>
           <label className={style.titles}>Image</label>
@@ -146,15 +163,15 @@ const Form = () => {
         </div>
 
         <div>
-          <label className={style.titles}>Step By Step:</label>
-          <textarea
-            type="text"
-            name="stepByStep"
-            value={input.analyzedInstructions.map((stepObj) => stepObj.step).join("\n")}
-            maxLength="1200"
-            onChange={handleStepChange}
-/>
-        </div>
+        <label className={style.titles}>Step By Step:</label>
+        <textarea
+          type="text"
+          name="stepByStep"
+          value={input.analyzedInstructions.map((stepObj) => stepObj.step).join("\n")}
+          maxLength="1200"
+          onChange={handleStepChange}
+        />
+      </div>
 
         <div>
           <label className={style.title}>Select Diet Types: </label>

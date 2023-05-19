@@ -14,16 +14,16 @@ const Card = ({ image, name, diets, id }) => {
             {/* <p>Summary:{props.summary}</p> */}
             <div className={style.dietTypes}>
               <h5 className={style.cardText}>Diets:</h5>
-              <p className={style.text}>{Array.isArray(diets) ? diets.join(", ") : ''}</p>
+              <p className={style.text}>{Array.isArray(diets) ? diets.join(", ") : ""}</p>
             </div>
           </div>
           <div className={style.cardButtonContainer}>
             <Link to={`/recipes/${id}`} className={style.linkName}>
-            <button className={style.cardButton}>Learn More<span>&rarr;</span></button>
-          </Link>
+              <button className={style.cardButton}>
+                Learn More<span>&rarr;</span>
+              </button>
+            </Link>
           </div>
-          
-          {/* <p>HealthScore:{healthScore}</p> */}
         </div>
       </div>
     </div>
