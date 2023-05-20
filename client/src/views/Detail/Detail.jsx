@@ -23,16 +23,16 @@ const Detail = () => {
     }, [id]);
 
     const renderSteps = () => {
-        if (Array.isArray(recipe.steps)) {
-          return recipe.steps.map((step, index) => (
-            <div className={style.stepContainer} key={index}>
-              <p className={style.stepNumber}>Step number: {index + 1}</p>
-              <p className={style.step}>{step}</p>
-            </div>
-          ));
-        }
-        return null;
-      };
+      if (Array.isArray(recipe.steps)) {
+        return recipe.steps.map((step, index) => (
+          <div className={style.stepContainer} key={index}>
+            <p className={style.stepNumber}>Step number: {step.number}</p>
+            <p className={style.step}>{step.step}</p>
+          </div>
+        ));
+      }
+      return null;
+    };
 
     const renderDiets = () => {
         if (Array.isArray(recipe.diets)) {

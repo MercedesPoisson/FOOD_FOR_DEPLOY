@@ -78,6 +78,18 @@ const Landing = () => {
             </div> */}
                      
         </div>
+        <div className={style.nav}>
+          <input type="checkbox" />
+          <span></span>
+          <span></span>
+          <div className={style.menu}>
+      <li><a href="#">Login</a></li>
+      <li><a href="#">Register</a></li>
+      
+    </div>
+</div>
+
+
       </div>
 
       <div className={`${style.firstContainer} ${style.section}`}>
