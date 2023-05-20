@@ -33,11 +33,13 @@ export const getRecipesByName = (name) => {
       const filteredRecipes = allRecipes.filter(recipe => recipe.name.toLowerCase().includes(searchTerm));
 
       if (filteredRecipes.length > 0) {
+        console.log('Recetas encontradas:', filteredRecipes);
         dispatch({ type: GET_BY_NAME, payload: filteredRecipes });
       } else {
+        console.log('No se encontraron recetas');
         dispatch({ type: GET_BY_NAME, payload: [] });
         // Enviar un mensaje de error cuando no se encuentran recetas
-        alert('No se encontraron recetas con el nombre especificado');
+        alert('No recipes were found with the specified name');
       }
     } catch (error) {
       return dispatch({ type: GET_BY_NAME, payload: [] });
