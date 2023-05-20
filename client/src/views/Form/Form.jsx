@@ -106,18 +106,19 @@ const Form = () => {
       </Link>
       <h1 className={style.titulo}>add your own recipe </h1>
       <form onSubmit={handleSubmit} className={style.formContainer} name="form">
-        <div>
+        <div className={style.inputLineContainer}>
           <label className={style.titles}>Recipe Name</label>
           <input
             type="text"
             value={input.name}
             name="name"
             onChange={handleChange}
+            className={style.inputLine}
           />
           {errors.name && <p className={style.errors}>{errors.name}</p>}
         </div>
 
-        <div>
+        <div className={style.inputLineContainer}>
         <label className={style.titles}>Summary:</label>
         <input
           type="text"
@@ -126,25 +127,26 @@ const Form = () => {
           autoComplete="off"
           maxLength="800"
           onChange={handleSummaryChange}
+          className={style.inputLine}
         />
         {errors.summary && <p className={style.errors}>{errors.summary}</p>}
       </div>
 
-        <div>
+        <div className={style.inputLineContainer}>
           <label className={style.titles}>Image</label>
           <input
             type="url"
             name="image"
             value={input.image}
-            className={style.loadedImage}
             onChange={handleChange}
+            className={style.inputLine}
           />
           {errors.image && (
             <p className={style.errors}>{errors.image}</p>
           )}
         </div>
 
-        <div>
+        <div className={style.inputLineContainer}>
           <label className={style.titles}>Health Score: </label>
           <input
             type="range"
@@ -162,7 +164,7 @@ const Form = () => {
           )}
         </div>
 
-        <div>
+        <div className={style.inputLineContainer}>
         <label className={style.titles}>Step By Step:</label>
         <textarea
           type="text"
@@ -170,10 +172,11 @@ const Form = () => {
           value={input.analyzedInstructions.map((stepObj) => stepObj.step).join("\n")}
           maxLength="1200"
           onChange={handleStepChange}
+          className={style.stepInput}
         />
       </div>
 
-        <div>
+        <div className={style.inputLineContainer}>
           <label className={style.title}>Select Diet Types: </label>
           {typeDiets.map((diet) => (
             <label className={style.checkbox} key={diet}>
@@ -196,7 +199,9 @@ const Form = () => {
             CREATE
           </button>
           {errors.form && <p className={style.errors}>{errors.form}</p>}
+         <button type="text" className={style.previewButton}>PREVIEW</button>
         </div>
+        
       </form>
     </div>
   );

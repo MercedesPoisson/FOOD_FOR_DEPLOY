@@ -1,9 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300;1,400;1,500&family=Sacramento&display=swap');
+
 .containerTotal {
   position: fixed;
-  top: 0;
+  margin-left: -500px;
+  top: 70px;
   align-items: center;
   justify-content: center;
 }
+
+.inputLineContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.inputLine {
+  width: 200%;
+  height: 30px;
+  background-color: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid #cbcbcb;
+  outline: none;
+  margin-bottom: 1rem;
+  color: white;
+}
+
 .formContainer {
     display: flex;
     flex-direction: column;
@@ -21,12 +47,39 @@
     margin-bottom: 10px;
     
   }
-
-  .buttonBack {
-    margin-top: 70px;
-  }
-
+  
   .titulo {
-    font-family: "Brush Script MT",cursive;
+    font-family: "Sacramento",cursive;
+    font-size: 40px;
     font-weight: normal;
+    margin-top: -10px;
   }
+
+  
+.buttonBack, .submitButton, .previewButton {
+  width: 35%;
+  height: 45px;
+  /* margin-top: 70px; */
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.14);
+  color: #04395E;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.buttonBack:hover, .submitButton:hover, .previewButton:hover {
+  box-shadow: 0px 0px 8px #04395E;
+}
+
+.submitButton {
+  margin-right: 10px; /* Agrega margen a la derecha */
+}
+
+.previewButton {
+  margin-left: 10px; /* Agrega margen a la izquierda */
+}

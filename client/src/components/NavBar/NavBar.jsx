@@ -3,8 +3,6 @@ import style from "./NavBar.module.css";
 import { getRecipesByName } from "../../redux/actions";
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { FaSearch } from 'react-icons/fa';
-
 
 const NavBar = ({getRecipesByName}) => {
   const [ searchValue, setSearchValue ] = useState("");
@@ -30,9 +28,10 @@ const NavBar = ({getRecipesByName}) => {
           <div className={style.navElements}>
             <div className={`${style.section} ${style.rightSection}`}>
               <ul className={style.navLinks}>
-                <li><a href="/home">HOME</a></li>
-                <li><Link to="/create">CREATE</Link></li>
-                <li><Link to="/">LOGOUT</Link></li>
+                <li><a href="/home" className={style.navLink}>HOME</a></li>
+                <li><Link to="/create" className={style.navLink}>CREATE</Link></li>
+                <li><Link to="/contact" className={style.navLink}>CONTACT US</Link></li>
+                <li><Link to="/" className={style.navLink} >LOGOUT</Link></li>
               </ul>
             </div>
             
@@ -43,8 +42,8 @@ const NavBar = ({getRecipesByName}) => {
             <div className={`${style.section} ${style.leftSection}`}>
               <div className={style.searchContainer}>
                 <form onSubmit={handleSearchSubmit}>
-                  <input type="text" placeholder="Search" className={style.searchInput} value={searchValue} onChange={handleSearchChange}/>
-                  <button className={style.searchButton} type="submit"><FaSearch /></button>
+                  <input type="text" placeholder="Search Recipe" className={style.searchInput} value={searchValue} onChange={handleSearchChange}/>
+                  {/* <button className={style.searchButton} type="submit">SEARCH</button> */}
                 </form>
               </div>
             </div>

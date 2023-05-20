@@ -1,6 +1,118 @@
+/* *{
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.containerPage {
+  height: 20vh;
+  width: 20vh;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  transition: 0.5s;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
 .loginContainer {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #04395E;
+  margin-top: -80px;
+  margin-right: -40px;
+}
+
+form {
+  width: 80%;
+  margin: auto;
+}
+
+.inputLineContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.nameInput {
+  font-size: 12px;
+}
+
+.inputLine {
+  width: 100%;
+  height: 30px;
+  background-color: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid #cbcbcb;
+  outline: none;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.buttonLogin {
+  width: 100%;
+  height: 45px;
+  border-radius: 55px;
+  background-color: rgba(255, 255, 255, 0.14);
+  color: #04395E;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.buttonSecond {
+  width: 100%;
+  height: 45px;
+  border-radius: 55px;
+  background-color: transparent;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: 2px solid white;
+  margin: 1rem;
+  cursor: pointer;
+  transition: 0.5s;
+  opacity: 0.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.buttonLogin:hover {
+  box-shadow: 0px 0px 8px #04395E;
+}
+
+.buttonSecond:hover {
+  opacity: 1;
+
+}
+
+
+/* .loginContainer {
     display: grid;
-    grid-template-columns: auto 1fr; /* Agrega una columna automática para el div containerbienvenida */
+    grid-template-columns: auto 1fr; 
     border: 2px solid rgba(189, 194, 137, 0.5);
     border-radius: 10px;
     background-color: rgba(189, 194, 137, 0.1);;
@@ -8,24 +120,25 @@
     align-items: right;
     margin-left: 25px;
     /* border-radius: 20px; */
-    padding: 10px 10px;
+    /* padding: 10px 10px;
     height: 180px;
     width: 500px;
-  }
-  
+  } */ 
+/*   
   .bienvenidaContainer {
     padding: 20px;
-    grid-column: 1; /* Coloca el div en la primera columna */
-  }
+    grid-column: 1; 
+    }
   .bienvenidaContainer h3 {
-    margin-top: -20px; /* Elimina el margen superior predeterminado */
-    align-self: flex-start; /* Alinea el texto al inicio del contenedor */
+    margin-top: -20px; 
+    align-self: flex-start; 
+    
     
   }
   
   .loginSection {
     padding: 20px;
-    grid-column: 2; /* Coloca el div en la segunda columna */
+    grid-column: 2; 
     align-items: center;
   }
   
@@ -56,10 +169,10 @@
     padding: 5px;
     border: none;
     cursor: pointer;
-  }
-
+  } */
+/* 
   .buttonlogin {
-    margin-right: 5px; /* Agrega un margen derecho para separar los botones */
+    margin-right: 5px; 
   }
   
   .Error {
@@ -85,4 +198,4 @@
     font-size: 12px;
     font-family: sans-serif;
   }
-
+ */
