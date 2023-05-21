@@ -51,11 +51,13 @@ const Detail = () => {
       </div>
       <div className={style.cardContent}>
         <h1>{recipe?.name}</h1>
-        <h3>id Number: {recipe?.id}</h3>
-        <p>Summary: <span dangerouslySetInnerHTML={createMarkup(recipe?.summary)} /></p>
         <h3>HealthScore: {recipe?.healthScore} </h3>
+        
+        <p>Summary: <span dangerouslySetInnerHTML={createMarkup(recipe?.summary)} /></p>
+        
         <div className={style.containerStep}>{renderSteps()}</div>
         <div>Diet Types: {renderDiets()}</div>
+        <h3>id Number: {recipe?.id}</h3>
       </div>
     </div>
   );

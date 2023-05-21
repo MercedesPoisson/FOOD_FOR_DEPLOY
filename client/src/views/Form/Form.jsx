@@ -5,6 +5,7 @@ import { getTypeDiets, postRecipes, postDiets } from "../../redux/actions";
 import style from "./Form.module.css";
 import validation from "./Validation";
 import { BsArrowLeftCircle } from "react-icons/bs";
+import Preview from "./Preview";
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -27,13 +28,26 @@ const Form = () => {
     analyzedInstructions: "",
     image: "",
     typeDiets: [],
+    form: "",
   });
 
+  const [showPreview, setShowPreview] = useState(false);
+  const [ previewData, setPreviewData ] = useState(null);
+
   const handleChange = (event) => {
-    setInput({ ...input, [event.target.name]: event.target.value });
-    setErrors(
-      validation({ ...input, [event.target.name]: event.target.value })
-    );
+    const { name, value } = event.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: validation({ ...input, [name]: value })[name],
+    }));
+    setPreviewData((prevPreviewData) => ({
+      ...prevPreviewData,
+      [name]: value,
+    }));
   };
 
   const handleSummaryChange = (event) => {
@@ -60,151 +74,191 @@ const Form = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
-    const updatedInput = {
-      name: input.name,
-      summary: input.summary,
-      healthScore: input.healthScore,
-      analyzedInstructions: input.analyzedInstructions.map((stepObj) => stepObj.step),
-      image: input.image,
-      typeDiets: input.typeDiets,
-    };
+    const formErrors = validation(input);
+    if (Object.keys(formErrors).length > 0) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        ...formErrors,
+        form: "Please complete all"
+      }));
+    } else {
+      const updatedInput = {
+        name: input.name,
+        summary: input.summary,
+        healthScore: input.healthScore,
+        analyzedInstructions: input.analyzedInstructions.map((stepObj) => stepObj.step),
+        image: input.image,
+        typeDiets: input.typeDiets,
+      };
 
-    console.log("Datos de la receta:", updatedInput);
-  
-    dispatch(postRecipes(
-      updatedInput.name,
-      updatedInput.summary,
-      updatedInput.healthScore,
-      updatedInput.analyzedInstructions,
-      updatedInput.image,
-      updatedInput.typeDiets
-    ));
-  
-    setInput({
-      name: "",
-      summary: "",
-      healthScore: "",
-      analyzedInstructions: [{ step: "" }],
-      image: "",
-      typeDiets: [],
-    });
-  
-    history.push("/home");
+      console.log("Datos de la receta:", updatedInput);
+
+      dispatch(
+        postRecipes(
+          updatedInput.name,
+          updatedInput.summary,
+          updatedInput.healthScore,
+          updatedInput.analyzedInstructions,
+          updatedInput.image,
+          updatedInput.typeDiets
+        )
+      );
+
+      setInput({
+        name: "",
+        summary: "",
+        healthScore: "",
+        analyzedInstructions: [{ step: "" }],
+        image: "",
+        typeDiets: [],
+      });
+
+      history.push("/home");
+    }
   };
 
   useEffect(() => {
     dispatch(getTypeDiets());
   }, [dispatch]);
+  
+  const handlePreview = () => {
+    setShowPreview(true);
+  }
 
   return (
     <div className={style.containerTotal}>
-      <Link to="/home">
-        <button className={style.buttonBack}>
-          <BsArrowLeftCircle /> BACK
-        </button>
-      </Link>
-      <h1 className={style.titulo}>add your own recipe </h1>
-      <form onSubmit={handleSubmit} className={style.formContainer} name="form">
-        <div className={style.inputLineContainer}>
-          <label className={style.titles}>Recipe Name</label>
-          <input
-            type="text"
-            value={input.name}
-            name="name"
-            onChange={handleChange}
-            className={style.inputLine}
-          />
-          {errors.name && <p className={style.errors}>{errors.name}</p>}
-        </div>
-
-        <div className={style.inputLineContainer}>
-        <label className={style.titles}>Summary:</label>
-        <input
-          type="text"
-          name="summary"
-          value={input.summary}
-          autoComplete="off"
-          maxLength="800"
-          onChange={handleSummaryChange}
-          className={style.inputLine}
-        />
-        {errors.summary && <p className={style.errors}>{errors.summary}</p>}
-      </div>
-
-        <div className={style.inputLineContainer}>
-          <label className={style.titles}>Image</label>
-          <input
-            type="url"
-            name="image"
-            value={input.image}
-            onChange={handleChange}
-            className={style.inputLine}
-          />
-          {errors.image && (
-            <p className={style.errors}>{errors.image}</p>
-          )}
-        </div>
-
-        <div className={style.inputLineContainer}>
-          <label className={style.titles}>Health Score: </label>
-          <input
-            type="range"
-            min="1"
-            max="100"
-            name="healthScore"
-            value={input.healthScore}
-            onChange={handleChange}
-          />
-          {" "}
-          <output id="rangevalue">{input.healthScore}</output>
-
-          {errors.healthScore && (
-            <p className={style.errors}>{errors.healthScore}</p>
-          )}
-        </div>
-
-        <div className={style.inputLineContainer}>
-        <label className={style.titles}>Step By Step:</label>
-        <textarea
-          type="text"
-          name="stepByStep"
-          value={input.analyzedInstructions.map((stepObj) => stepObj.step).join("\n")}
-          maxLength="1200"
-          onChange={handleStepChange}
-          className={style.stepInput}
-        />
-      </div>
-
-        <div className={style.inputLineContainer}>
-          <label className={style.title}>Select Diet Types: </label>
-          {typeDiets.map((diet) => (
-            <label className={style.checkbox} key={diet}>
-              <input
-                onChange={handleCheckBox}
-                name="typeDiets"
-                type="checkbox"
-                value={diet}
-                checked={input.typeDiets.includes(diet)}
-              />
-              {diet}
-            </label>
-          ))}
-          {errors.typeDiets && (
-            <p className={style.errors}>{errors.typeDiets}</p>
-          )}
-        </div>
-        <div>
-          <button type="submit" className={style.submitButton}>
-            CREATE
-          </button>
+    <Link to="/home">
+      <button className={style.buttonBack}>
+        <BsArrowLeftCircle /> BACK
+      </button>
+    </Link>
+    <h1 className={style.titulo}>add your own recipe </h1>
+    <div className={style.formPreviewContainer}>
+      <div className={style.formContainer}>
+        <form onSubmit={handleSubmit} name="form">
+          <div className={style.inputLineContainer}>
+            <label className={style.titles}>Recipe Name</label>
+            <input
+              type="text"
+              value={input.name}
+              name="name"
+              onChange={handleChange}
+              className={style.inputLine}
+            />
+            {errors.name && <p className={style.errors}>{errors.name}</p>}
+          </div>
+  
+          <div className={style.inputLineContainer}>
+            <label className={style.titles}>Summary:</label>
+            <input
+              type="text"
+              name="summary"
+              value={input.summary}
+              autoComplete="off"
+              maxLength="800"
+              onChange={handleSummaryChange}
+              className={style.inputLine}
+            />
+            {errors.summary && <p className={style.errors}>{errors.summary}</p>}
+          </div>
+  
+          <div className={style.inputLineContainer}>
+            <label className={style.titles}>Image</label>
+            <input
+              type="url"
+              name="image"
+              value={input.image}
+              onChange={handleChange}
+              className={style.inputLine}
+            />
+            {errors.image && (
+              <p className={style.errors}>{errors.image}</p>
+            )}
+          </div>
+  
+          <div className={style.inputLineContainer}>
+            <label className={style.titles}>Health Score: </label>
+            <input
+              type="range"
+              min="1"
+              max="100"
+              name="healthScore"
+              value={input.healthScore}
+              onChange={handleChange}
+            />
+            {" "}
+            <output id="rangevalue">{input.healthScore}</output>
+  
+            {errors.healthScore && (
+              <p className={style.errors}>{errors.healthScore}</p>
+            )}
+          </div>
+  
+          <div className={style.inputLineContainer}>
+            <label className={style.titles}>Step By Step:</label>
+            <textarea
+              type="text"
+              name="stepByStep"
+              value={input.analyzedInstructions.map((stepObj) => stepObj.step).join("\n")}
+              maxLength="1200"
+              onChange={handleStepChange}
+              className={style.stepInput}
+            />
+          </div>
+  
+          <div className={style.inputLineContainer}>
+            <label className={style.title}>Select Diet Types: </label>
+            {typeDiets.map((diet) => (
+              <label className={style.checkbox} key={diet}>
+                <input
+                  onChange={handleCheckBox}
+                  name="typeDiets"
+                  type="checkbox"
+                  value={diet}
+                  checked={input.typeDiets.includes(diet)}
+                />
+                {diet}
+              </label>
+            ))}
+            {errors.typeDiets && (
+              <p className={style.errors}>{errors.typeDiets}</p>
+            )}
+          </div>
+          <div className={style.buttonContainer}>
+          <button
+  type="submit"
+  className={style.submitButton}
+  disabled={Object.keys(errors).some((key) => errors[key]) || !input.image}
+>
+  CREATE
+</button>
           {errors.form && <p className={style.errors}>{errors.form}</p>}
-         <button type="text" className={style.previewButton}>PREVIEW</button>
+          <button
+            type="button"
+            className={style.previewButton}
+            onClick={handlePreview}
+          >
+            {showPreview ? "HIDE PREVIEW" : "PREVIEW"}
+          </button>
         </div>
+          </form>
         
-      </form>
+      </div>
+      <div className={style.previewContainer}>
+  {showPreview && (
+    <Preview
+      name={input.name}
+      summary={input.summary}
+      healthScore={input.healthScore}
+      stepByStep={input.stepByStep}
+      dietTypes={input.typeDiets}
+      image={input.image}
+    />
+  )}
+</div>
     </div>
-  );
+  </div>
+);
 }
 
   export default Form; 

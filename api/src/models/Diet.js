@@ -3,10 +3,9 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
     sequelize.define("diets", {
         id: {
-            type: DataTypes.UUID, //genera numero random con letras y numeros 
-            defaultValue:DataTypes.UUIDV4,
+            type: DataTypes.INTEGER,
             primaryKey: true,
-            allowNull: false,
+            autoIncrement: true,
         },
         name: {
             type: DataTypes.STRING,

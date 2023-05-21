@@ -1,11 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300;1,400;1,500&family=Sacramento&display=swap');
 
 .containerTotal {
-  position: fixed;
-  margin-left: -500px;
-  top: 70px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+}
+
+.formContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas */
+  column-gap: 20px; /* Espacio entre las columnas */
+  align-items: flex-start; /* Alinear elementos al inicio verticalmente */
+  margin-right: 200px;
+}
+
+.formPreviewContainer {
+  display: flex;
+  justify-content: space-between; /* Espacio entre los elementos */
+  align-items: flex-start;
+  width: 100%;
+  margin-left: 10px;
+  
+}
+
+.previewContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 .inputLineContainer {
@@ -27,7 +48,7 @@
   border-bottom: 2px solid #cbcbcb;
   outline: none;
   margin-bottom: 1rem;
-  color: white;
+  color: black;
 }
 
 .formContainer {
@@ -78,8 +99,20 @@
 
 .submitButton {
   margin-right: 10px; /* Agrega margen a la derecha */
+  margin-top: 1rem;
 }
 
 .previewButton {
-  margin-left: 10px; /* Agrega margen a la izquierda */
+  margin-left: 20px; /* Agrega margen a la izquierda */
+  margin-top: 1rem;
+}
+.buttonContainer {
+  /* Estilos del contenedor de los botones */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.stepInput {
+  width: 300px;
 }
