@@ -250,8 +250,8 @@ const Form = () => {
       name={input.name}
       summary={input.summary}
       healthScore={input.healthScore}
-      stepByStep={input.stepByStep}
-      dietTypes={input.typeDiets}
+      analyzedInstructions={input.analyzedInstructions}
+      typeDiets={input.typeDiets}
       image={input.image}
     />
   )}

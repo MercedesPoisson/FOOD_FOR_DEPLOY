@@ -22,10 +22,6 @@ const Login = ({register}) => {
         }))
     }
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault()
-    //     login(userData)
-    // }
     return (
 
         <div className={style.containerPage} id="container">

@@ -1,13 +1,14 @@
 import React from "react";
 import style from "./Preview.module.css";
 
-const Preview = ({ name, summary, image, healthScore, stepByStep, diets }) => {
+const Preview = ({ name, summary, image, healthScore, analyzedInstructions, typeDiets }) => {
+
     const renderSteps = () => {
-        if (Array.isArray(stepByStep)) {
-          return stepByStep.map((step, index) => (
+        if (Array.isArray(analyzedInstructions)) {
+          return analyzedInstructions.map((step, index) => (
             <div className={style.stepContainer} key={index}>
               <p className={style.stepNumber}>Step number: {index + 1}</p>
-              <p className={style.step}>{step}</p>
+              <p className={style.step}>{step.step}</p>
             </div>
           ));
         }
@@ -15,8 +16,8 @@ const Preview = ({ name, summary, image, healthScore, stepByStep, diets }) => {
       };
 
   const renderDiets = () => {
-    if (Array.isArray(diets)) {
-      return diets.join(", ");
+    if (Array.isArray(typeDiets)) {
+      return typeDiets.join(", ");
     }
     return null;
   };

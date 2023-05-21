@@ -1,7 +1,7 @@
 const Validation = (userData) => {
     const errors = {};
 
-    if(!userData.emai) {
+    if(!userData.email) {
         errors.email = "Email can´t be empty";
     } else if (!/\S+@\S+\.\S+/.test(userData.email)) {
         errors.email = "Invalid email";

@@ -30,7 +30,7 @@ const NavBar = ({getRecipesByName}) => {
               <ul className={style.navLinks}>
                 <li><a href="/home" className={style.navLink}>HOME</a></li>
                 <li><Link to="/create" className={style.navLink}>CREATE</Link></li>
-                <li><Link to="/contact" className={style.navLink}>CONTACT US</Link></li>
+                {/* <li><Link to="/contact" className={style.navLink}>CONTACT US</Link></li> */}
                 <li><Link to="/" className={style.navLink} >LOGOUT</Link></li>
               </ul>
             </div>

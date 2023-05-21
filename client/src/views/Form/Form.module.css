@@ -11,7 +11,8 @@
   grid-template-columns: 1fr 1fr; /* Dos columnas */
   column-gap: 20px; /* Espacio entre las columnas */
   align-items: flex-start; /* Alinear elementos al inicio verticalmente */
-  margin-right: 200px;
+  margin-right: 300px;
+
 }
 
 .formPreviewContainer {
