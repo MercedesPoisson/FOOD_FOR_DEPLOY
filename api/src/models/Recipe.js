@@ -9,9 +9,9 @@ module.exports = (sequelize) => {
           allowNull: false,
       },
       id: {
-        type: DataTypes.UUID,  //de esta forma no se va a pisar con los ID de la API
+        type: DataTypes.UUID, 
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,//se van a crear automaticamente cuando creo una dieta
+        defaultValue: DataTypes.UUIDV4,
         allowNull: false,
       },
        image:{

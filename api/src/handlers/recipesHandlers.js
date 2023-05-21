@@ -26,9 +26,9 @@ try {
 };
 
 const postRecipeHandler = async (req, res) => {
-  const { name, summary, healthScore, stepByStep, diets, image, created } = req.body;
+  const { name, summary, healthScore, stepByStep, diets, image, servings, readyInMinutes, created } = req.body;
   try {
-    const newRecipe = await createRecipe(name, summary, healthScore, { steps: stepByStep }, diets, image, created);
+    const newRecipe = await createRecipe(name, summary, healthScore, { steps: stepByStep }, diets, image, servings, readyInMinutes, created);
 
     // Obtener el ID de la receta recién creada
     const recipeId = newRecipe.id;

@@ -9,11 +9,11 @@ const getAllDiets = async (req, res) => {
     try {
         const dietsApi = await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)
         const dietArray = dietsApi.data.results?.map((recipe) => recipe.diets);
-        const dietsEach = dietArray.flat();
+        const dietsEach = dietArray.flat(); // aplano los array y obtengo conjunto unico de dietas
         const diets = [...new Set(dietsEach)];
         console.log(diets);
 
-        diets.forEach((diet) => {
+        diets.forEach((diet) => { //itero sobre cada dieta  las guardo en la BDD
             Diets.findOrCreate({
                 where: {
                     name: diet,
