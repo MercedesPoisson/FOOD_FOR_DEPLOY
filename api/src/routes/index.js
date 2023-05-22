@@ -11,7 +11,7 @@ const router = Router();
 
 router.use("/recipes", recipesRouter);
 router.use("/diets", dietsRouter);
-// router.use("/login", loginRouter);
+
  
 
 module.exports = router;

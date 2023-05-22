@@ -66,6 +66,7 @@ const createRecipe = async (name, summary, healthScore, stepByStep, diets, image
       // Establecer la relación entre la receta y los tipos de dieta
       await newRecipe.addDiets(dietObjects);
     }
+    console.log("New Recipe:", newRecipe);
 
     return newRecipe;
   } catch (error) {
