@@ -98,16 +98,15 @@
 }
 
 .submitButton {
-  margin-right: 10px; /* Agrega margen a la derecha */
+  margin-right: 10px; 
   margin-top: 1rem;
 }
 
 .previewButton {
-  margin-left: 20px; /* Agrega margen a la izquierda */
+  margin-left: 20px; 
   margin-top: 1rem;
 }
 .buttonContainer {
-  /* Estilos del contenedor de los botones */
   display: flex;
   flex-direction: row;
   align-items: center;

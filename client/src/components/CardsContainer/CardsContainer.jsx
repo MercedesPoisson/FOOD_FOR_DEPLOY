@@ -8,9 +8,9 @@ const CardsContainer = ({ recipes }) => {
     <div className={`${style.container} ${style.cardsContainer}`}>
       {recipes &&
         recipes.map(({ name, id, diets, healthScore, image }) => {
-          console.log(diets); // Agrega el console.log aquí
+          console.log(diets); 
           const dietNames = Array.isArray(diets)
-            ? diets.map(diet => diet.name || diet) // Si es un objeto, obtén el nombre; si es una cadena, úsala directamente
+            ? diets.map(diet => diet.name || diet) // condicional dependiendo de donde vienen los datos si es un objeto obtengo el nombre y si es una, la uso directamente
             : [];
 
           return (

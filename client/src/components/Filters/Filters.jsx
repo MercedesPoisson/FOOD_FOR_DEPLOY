@@ -36,34 +36,33 @@ const Filters = () => {
 
 
   return (
-
     <div className={style.container}>
       <div className={style.filterContainer}>
         <span>Filter By: </span>
-      <select defaultValue="Diet Type" onChange={(e) => handleFilterByDiet(e.target.value)}>
-        <option value="Diet Type" disabled>
-          Diet Type
-        </option>
-        <option value="All Diet Types">All Diet Types</option>
-        {typeDiets.map((dietType) => (
-          <option key={dietType} value={dietType}>
-            {dietType}
+        <select defaultValue="Diet Type" onChange={(e) => handleFilterByDiet(e.target.value)}>
+          <option value="Diet Type" disabled>
+            Diet Type
           </option>
-        ))}
-      </select>
+          <option value="All Diet Types">All Diet Types</option>
+          {typeDiets.map((dietType) => (
+            <option key={dietType} value={dietType}>
+              {dietType}
+            </option>
+          ))}
+        </select>
       </div>
-
+  
       <div className={style.filterContainer}>
-         <select defaultValue="Source" onChange={(event) => handleFilterBySource(event.target.value)}>
-        <option value="Source" disabled>
-          Source
-        </option>
-        <option value="All Sources">All Sources</option>
-        <option value="API">API</option>
-        <option value="Database">Database</option>
-      </select>
+        <select defaultValue="Source" onChange={(event) => handleFilterBySource(event.target.value)}>
+          <option value="Source" disabled>
+            Source
+          </option>
+          <option value="All Sources">All Sources</option>
+          <option value="API">API</option>
+          <option value="Database">Database</option>
+        </select>
       </div>
-
+  
       <div className={style.filterContainer}>
         <span>Sort By: </span>
         <select onChange={handleSortChange}>
@@ -72,19 +71,16 @@ const Filters = () => {
           <option value="ZtoA">Z-A</option>
         </select>
       </div>
-
+  
       <div className={style.filterContainer}>
         <select onChange={handleSortScoreChange}>
           <option value="order" disabled="disabled">Health Score</option>
           <option value={"ascendent"}>Higher</option>
           <option value={"descendent"}>Lower</option>
         </select>
-
       </div>
-
-     
     </div>
   );
-};
+ };
 
 export default Filters;

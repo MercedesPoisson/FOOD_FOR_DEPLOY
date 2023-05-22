@@ -17,15 +17,12 @@ const getAllRecipes = async () => {
   });
 
   const apiRecipesRaw = (await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)).data.results;
-
   let apiRecipes = [];
   if (Array.isArray(apiRecipesRaw)) {
     apiRecipes = cleanArray(apiRecipesRaw);
   }
-
   const allRecipes = [...dataBaseRecipes, ...apiRecipes];
   console.log(allRecipes);
-
   return allRecipes;
 };
 
@@ -34,7 +31,6 @@ const getRecipeSteps = (recipe) => {
   if (!recipe.stepByStep || recipe.stepByStep.length === 0) {
     return [];
   }
-
   const steps = recipe.stepByStep[0].steps;
   return steps.map((step) => step.step);
 };
@@ -55,15 +51,10 @@ const cleanArray = (arr) =>
 
 const createRecipe = async (name, summary, healthScore, stepByStep, diets, image, created) => {
   try {
-    // Crear la receta
     const newRecipe = await Recipes.create({ name, summary, healthScore, stepByStep: stepByStep.steps, image, created });
-
-    // Validar que diets sea un array de nombres de dieta
-    if (Array.isArray(diets) && diets.length > 0) {
-      // Obtener los objetos de dieta correspondientes por nombre
+    if (Array.isArray(diets) && diets.length > 0) { //valido que tipos de dieta sea un []
       const dietObjects = await Diets.findAll({ where: { name: diets } });
 
-      // Establecer la relación entre la receta y los tipos de dieta
       await newRecipe.addDiets(dietObjects);
     }
     console.log("New Recipe:", newRecipe);
@@ -118,9 +109,7 @@ const searchRecipesByName = async (name) => {
     return getAllRecipes();
   }
   const dataBaseRecipes = await Recipes.findAll({ where: { name: name } });
-
   const apiRecipesRaw = (await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)).data.results;
-
   const filteredApi = apiRecipesRaw.filter((recipe) =>
     recipe.title.toLowerCase().includes(name.toLowerCase())
   );
@@ -153,6 +142,13 @@ module.exports = {
   // getApiRecipes,
   // getBdRecipes,
 };
+
+
+
+
+
+
+
 
   //       `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`
 //          `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`

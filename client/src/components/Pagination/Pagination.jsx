@@ -3,45 +3,41 @@ import arrowLeft from "./arrow-left-svgrepo-com.svg";
 import arrowRight from "./arrow-right-svgrepo-com.svg";
 import style from "./Pagination.module.css";
 
-// --- en este componente estoy renderizando los numeros y las flechas
+// -----Muestro Paginado ---- Permite Navegacion entre las diferentes Paginas -------
 const Pagination = ({ recipesPerPage, allRecipes, paginado }) => {
-  const totalPages = Math.ceil(allRecipes / recipesPerPage); // Primero calculo el numero de paginas que necesito (yo puse mostrar 9 por pagina asique deberia darme 12 paginas)
-  const [currentPage, setCurrentPage] = useState(1); // despues creo el estado para almacenar la pagina en la que estoy
+  const totalPages = Math.ceil(allRecipes / recipesPerPage); 
+  const [currentPage, setCurrentPage] = useState(1); 
 
-
-  // No ir a paginas menores a 1 o paginas mayores a la cantidad total de paginas
   const goToPage = (pageNumber) => {
     if (pageNumber < 1 || pageNumber > totalPages) {
-      return; // Evitar ir a páginas inválidas
+      return; 
     }
-  //se actualiza pagina actual en el estado y se llama a la funcion de paginado con el numero de pagina seleccionado
     setCurrentPage(pageNumber);
     paginado(pageNumber);
   };
 
-   // No ir a paginas menores a 1
   const goToPreviousPage = () => {
     const previousPage = currentPage - 1;
     if (previousPage < 1) {
       return; 
     }
-    //actualizo el numero de pagina y llamo a paginado con la pagina anterior
+    
     setCurrentPage(previousPage);
     paginado(previousPage);
   };
-  // No ir a paginas mayores al total de paginas
+  
   const goToNextPage = () => {
     const nextPage = currentPage + 1;
     if (nextPage > totalPages) {
-      return; // Evitar ir a una página siguiente inválida
+      return; 
     }
-    //actualizo el numero de pagina y llamo a paginado con la pagina siguiente
+   
     setCurrentPage(nextPage);
     paginado(nextPage);
   };
-  // renderizo los numeros de pagina como elementos de una lista
+// -----Renderizado de Numero de pagina en una Lista -------- guado los numeros en un []
   const renderPageNumbers = () => {
-    const pageNumbers = []; // en este array guardo los numeros de pagina que necesito segun la cantidad de cards que renderizo por vista
+    const pageNumbers = []; // 
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(
         <li key={i}>

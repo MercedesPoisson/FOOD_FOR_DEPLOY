@@ -28,7 +28,6 @@ export const getRecipesByName = (name) => {
       const apiData = await axios.get(`http://localhost:3001/recipes`);
       const allRecipes = apiData.data;
 
-      // Convertir la entrada de búsqueda y los nombres de las recetas a minúsculas
       const searchTerm = name.toLowerCase();
       const filteredRecipes = allRecipes.filter(recipe => recipe.name.toLowerCase().includes(searchTerm));
 
@@ -38,7 +37,6 @@ export const getRecipesByName = (name) => {
       } else {
         console.log('No se encontraron recetas');
         dispatch({ type: GET_BY_NAME, payload: [] });
-        // Enviar un mensaje de error cuando no se encuentran recetas
         alert('No recipes were found with the specified name');
       }
     } catch (error) {
@@ -71,11 +69,10 @@ export const filterByDiet = (typeDiets) => {
 
 export const filterBySource = (selectedSource) => {
   return function (dispatch, getState) {
-    const { allRecipes, source } = getState(); // Obtener todas las recetas originales y el origen actual
+    const { allRecipes, source } = getState(); 
+    let filteredRecipes = allRecipes;
 
-    let filteredRecipes = allRecipes; // Inicialmente, todas las recetas
-
-    if (selectedSource !== source) {  //las recetas de la API son de tipo numero y las de la BD son de tipo UUID
+    if (selectedSource !== source) {  
       if (selectedSource === "API") {
         filteredRecipes = allRecipes.filter((recipe) => typeof recipe.id === "number");
       } else if (selectedSource === "Database") {
@@ -114,6 +111,15 @@ export const postRecipes = (name, summary, healthScore, stepByStep, image, diets
     }
   }
 }
+
+
+
+
+
+
+
+
+
 
 // export const postRecipes = (payload) => {
 //   return async function (dispatch) {
