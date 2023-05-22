@@ -10,23 +10,49 @@ const Detail = () => {
     const [ recipe, setRecipe ] = useState({});
 
     useEffect(() => {
-        axios(`http://localhost:3001/recipes/${id}`)
-        .then(response => response.data)
-        .then((data) => {
-            if(data.name) {
-                setRecipe(data);
-            } else {
-                alert(`We dont have recipes with this #{id} number`)
-            }
+      axios(`http://localhost:3001/recipes/${id}`)
+        .then(response => {
+          console.log('Response:', response.data);
+          return response.data;
         })
-        return setRecipe({});        
+        .then((data) => {
+          if (data.name) {
+            setRecipe(data);
+          } else {
+            alert(`We don't have recipes with this #{id} number`);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    
+      return setRecipe({});
     }, [id]);
 
+    // const renderSteps = () => {
+    //   if (Array.isArray(recipe.steps?.steps)) {
+    //     return recipe.steps.steps.map((step, index) => (
+    //       <div className={style.stepContainer} key={index}>
+    //         <p className={style.stepNumber}>Step number: {index + 1}</p>
+    //         <p className={style.step}>{step}</p>
+    //       </div>
+    //     ));
+    //   }
+    //   return null;
+    // };
+
     const renderSteps = () => {
-      if (Array.isArray(recipe.steps)) {
-        return recipe.steps.map((step, index) => (
+      if (Array.isArray(recipe.steps?.steps)) {
+        return recipe.steps.steps.map((step, index) => (
           <div className={style.stepContainer} key={index}>
             <p className={style.stepNumber}>Step number: {step.number}</p>
+            <p className={style.step}>{step}</p>
+          </div>
+        ));
+      } else if (Array.isArray(recipe.steps)) {
+        return recipe.steps.map((step, index) => (
+          <div className={style.stepContainer} key={index}>
+            <p className={style.stepNumber}>Step number: {index + 1}</p>
             <p className={style.step}>{step.step}</p>
           </div>
         ));

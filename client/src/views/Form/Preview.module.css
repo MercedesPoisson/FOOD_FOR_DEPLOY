@@ -1,0 +1,16 @@
+.name {
+    color: #04395E;
+}
+
+.health {
+    color: #D16666;
+}
+.stepTitle, .summaryTitle, .dietsTitle {
+    font-weight: bold;
+    color: #70A288;
+}
+.image {
+    width: 150px;
+    height: auto;
+    
+}

@@ -10,7 +10,7 @@
     justify-content: center;
     border-radius: 15px;
     flex-wrap: wrap;
-    margin-top: 10px;
+    margin-top: 2px;
     align-items: flex-start;
     /* align-items: center; */
   
@@ -23,8 +23,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 16px;
-    padding: 16px;
+    gap: -5px;
+    padding: 5px;
     
   }
 
