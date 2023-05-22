@@ -27,19 +27,17 @@ const Detail = () => {
       return setRecipe({});
     }, [id]);    
 
+    
     const renderSteps = () => {
-      if (Array.isArray(recipe.steps?.steps)) {
-        return recipe.steps.steps.map((step, index) => (
-          <div className={style.stepContainer} key={index}>
-            <p className={style.stepNumber}>Step number: {step.number}</p>
-            <p className={style.step}>{step}</p>
-          </div>
-        ));
-      } else if (Array.isArray(recipe.steps)) {
+      if (Array.isArray(recipe.steps)) {
         return recipe.steps.map((step, index) => (
           <div className={style.stepContainer} key={index}>
             <p className={style.stepNumber}>Step number: {index + 1}</p>
-            <p className={style.step}>{step.step}</p>
+            {typeof step === 'string' ? (
+              <p className={style.step}>{step}</p>
+            ) : (
+              <p className={style.step}>{step.step}</p>
+            )}
           </div>
         ));
       }
@@ -80,7 +78,24 @@ export default Detail;
 
 
 
-
+// const renderSteps = () => {
+    //   if (Array.isArray(recipe.steps?.steps)) {
+    //     return recipe.steps.steps.map((step, index) => (
+    //       <div className={style.stepContainer} key={index}>
+    //         <p className={style.stepNumber}>Step number: {step.number}</p>
+    //         <p className={style.step}>{step}</p>
+    //       </div>
+    //     ));
+    //   } else if (Array.isArray(recipe.steps)) {
+    //     return recipe.steps.map((step, index) => (
+    //       <div className={style.stepContainer} key={index}>
+    //         <p className={style.stepNumber}>Step number: {index + 1}</p>
+    //         <p className={style.step}>{step.step}</p>
+    //       </div>
+    //     ));
+    //   }
+    //   return null;
+    // };
 
 
 
