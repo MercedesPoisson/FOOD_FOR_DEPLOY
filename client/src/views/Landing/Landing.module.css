@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300;1,400;1,500&family=Sacramento&display=swap');
+
 .hidden {
   display: none;
 }
@@ -6,16 +6,15 @@
 .iconos {
   display: flex;
   align-items: center;
-  margin-top: 20px; /* Ajusta la separación vertical según tus necesidades */
+  margin-top: 20px; 
 }
 
-.icon {
-  font-size: 28px; /* Ajusta el tamaño del icono según tus necesidades */
-  color: black; /* Cambia el color del icono a negro */
+.icon { 
+  width: 40px;
 }
 
 .iconSpacer {
-  width: 16px; /* Ajusta el espacio según tus necesidades */
+  width: 16px; 
 }
 
 .loginButton, 
@@ -31,7 +30,6 @@
   grid-template-rows: auto 1fr auto;
   align-items: center;
   justify-content: center;
-  /* height: 100vh; */
   grid-row-gap: 10px;
   padding: 150px;
   margin-top: -530px;
@@ -85,10 +83,10 @@
 }
 
 .forText {
-  font-family: "Sacramento", cursive;
+  font-family: 'Courier New', Courier, monospace, serif ,cursive;
   font-weight: normal;
   color: #70A288;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .foodieLoversText {
@@ -97,9 +95,9 @@
 }
 
 .experienceText {
-  font-family: 'Sacramento', cursive;;
+  font-family: 'Courier New', Courier, monospace, serif ,cursive;
   font-weight: normal;
-  font-size: 30px;
+  font-size: 18px;
   line-height: 0.5;
   color: #70A288;
 }
@@ -150,7 +148,6 @@
 }
 
 /* IMAGENES */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap");
 
 * {
   margin: 0;
@@ -346,7 +343,7 @@ letter-spacing: 1px;
 }
 
 .nav input:checked ~ .menu {
-  width: 150px; /* Ajusta el ancho del menú según tu preferencia */
+  width: 150px; 
 }
 
 .nav span:nth-child(2) {

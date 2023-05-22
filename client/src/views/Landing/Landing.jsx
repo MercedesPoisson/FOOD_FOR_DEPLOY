@@ -3,10 +3,11 @@ import Foto1 from "./Foto1.jpg";
 import Foto2 from "./Foto2.jpg";
 import Foto3 from "./Foto3.jpg";
 import Login from "./Login";
+import GithubIcon from './github-svgrepo-com.svg';
+import LinkedinIcon from './linkedin-svgrepo-com.svg';
 import Register from "./Register";
 import axios from "axios";
 import { Link, useHistory } from 'react-router-dom';
-import { BsLinkedin, BsGithub } from 'react-icons/bs';
 import { useState, useEffect } from "react";
 
 const Landing = () => {
@@ -97,11 +98,11 @@ const Landing = () => {
   
         <div className={style.iconos}>
           <a href="https://linkedin.com/in/mercedespoisson" target="_blank" rel="noopener noreferrer">
-            <BsLinkedin className={style.icon} />
+            <img src={LinkedinIcon} alt="Linkedin" className={style.icon} />
           </a>
           <div className={style.iconSpacer}></div>
           <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
-            <BsGithub className={style.icon} />
+            <img src={GithubIcon} alt="Github" className={style.icon} />
           </a>
         </div>
       </div>

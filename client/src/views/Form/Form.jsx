@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTypeDiets, postRecipes, postDiets } from "../../redux/actions";
 import style from "./Form.module.css";
 import validation from "./Validation";
-import { BsArrowLeftCircle } from "react-icons/bs";
 import Preview from "./Preview";
 
 const Form = () => {
@@ -133,7 +132,7 @@ const Form = () => {
     <div className={style.containerTotal}>
       <Link to="/home">
         <button className={style.buttonBack}>
-          <BsArrowLeftCircle /> BACK
+          BACK
         </button>
       </Link>
       <h1 className={style.titulo}>add your own recipe </h1>
@@ -291,7 +290,6 @@ const Form = () => {
 // import { getTypeDiets, postRecipes } from "../../redux/actions";
 // import style from "./Form.module.css";
 // import validation from "./Validation";
-// import { BsArrowLeftCircle } from "react-icons/bs";
 // import Preview from "./Preview";
 
 // const Form = () => {
@@ -576,7 +574,7 @@ const Form = () => {
 // import { getTypeDiets, postRecipes } from "../../redux/actions";
 // import style from "./Form.module.css";
 // import validation from "./Validation";
-// import { BsArrowLeftCircle } from "react-icons/bs";
+// 
 
 // const Form = () => {
 

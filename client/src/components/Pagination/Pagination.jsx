@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
+import arrowLeft from "./arrow-left-svgrepo-com.svg";
+import arrowRight from "./arrow-right-svgrepo-com.svg";
 import style from "./Pagination.module.css";
 
 // --- en este componente estoy renderizando los numeros y las flechas
@@ -52,19 +53,19 @@ const Pagination = ({ recipesPerPage, allRecipes, paginado }) => {
     }
     return pageNumbers;
   };
-  // agregue iconos de react icons
+  
   return (
     <nav className={style.pagination}>
       <ul className={style.ul}>
         <li>
           <a className={style.container} onClick={goToPreviousPage}>
-            <BsArrowLeftShort />
+            <img src={arrowLeft} alt="" className={style.icon} />
           </a>
         </li>
         {renderPageNumbers()}
         <li>
           <a className={style.container} onClick={goToNextPage}>
-            <BsArrowRightShort />
+          <img src={arrowRight} alt="" className={style.icon} />
           </a>
         </li>
       </ul>
