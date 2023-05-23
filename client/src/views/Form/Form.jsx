@@ -14,6 +14,19 @@ const Form = () => {
   const [ showPreview, setShowPreview ] = useState(false);
   const [ previewData, setPreviewData ] = useState(null);
 
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
+
+
+  const galleryImages = [
+    { id: 1, url: "https://i.pinimg.com/236x/9e/08/68/9e08689aa7a52a8945b60c221da0851a.jpg" },
+    { id: 2, url: "https://i.pinimg.com/236x/96/42/12/964212701c22d5433bed01c59b3571fc.jpg" },
+    { id: 3, url: "https://i.pinimg.com/564x/7b/dd/db/7bdddb68248a04661bedb4c1e43d666a.jpg" },
+    { id: 4, url: "https://i.pinimg.com/236x/15/d8/af/15d8afe572105f87528ec6a29174a7fd.jpg" },
+    { id: 5, url: "https://i.pinimg.com/236x/ff/b1/3a/ffb13aed389a83cf36a384a847d167ee.jpg" },
+    { id: 6, url: "https://i.pinimg.com/236x/78/11/b1/7811b1c87d96712fd6e3c87b0d630232.jpg" },
+  ];
+
   const [input, setInput] = useState({
     name: "",
     summary: "",
@@ -128,6 +141,14 @@ const Form = () => {
     setShowPreview(false);
   };
 
+  const handleGalleryImageClick = (image) => {
+    setSelectedImage(image);
+    setInput((prevInput) => ({
+      ...prevInput,
+      image: image.url, // Actualizar el estado input.image con la URL de la imagen seleccionada
+    }));
+  };
+
   return (
     <div className={style.containerTotal}>
       <Link to="/home">
@@ -174,10 +195,22 @@ const Form = () => {
             onChange={handleChange}
             className={style.inputLine}
           />
-          {errors.image && (
+          {/* {errors.image && (
             <p className={style.errors}>{errors.image}</p>
-          )}
+          )} */}
         </div>
+
+        <div className={style.galleryContainer}>
+  {galleryImages.map((image) => (
+    <img
+      key={image.id}
+      src={image.url}
+      alt={`Image ${image.id}`}
+      onClick={() => handleGalleryImageClick(image)}
+      className={selectedImage === image ? style.selectedImage : style.image}
+    />
+  ))}
+</div>
 
         <div className={style.inputLineContainer}>
           <label className={style.titles}>Health Score: </label>
@@ -250,8 +283,8 @@ const Form = () => {
         healthScore={input.healthScore}
         analyzedInstructions={input.analyzedInstructions}
         typeDiets={input.typeDiets}
-        image={input.image}
-        />
+        image={selectedImage ? selectedImage.url : input.image}
+      />
       )}
     </div>
         </div>

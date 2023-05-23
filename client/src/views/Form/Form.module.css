@@ -133,3 +133,22 @@
 .errors {
   color: #D16666;
 }
+
+/* Galeria simulada*/
+.galleryContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
+.selectedImage {
+  width: 100px;
+  height: 100px;
+  border: 2px solid #04395E;
+  cursor: pointer;
+}

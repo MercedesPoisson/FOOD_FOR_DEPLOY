@@ -9,9 +9,9 @@ const validation = (input) => {
     errors.summary = "Please enter a summary.";
   }
 
-  if (!input.image) {
-    errors.image = "Please enter an image URL.";
-  }
+  // if (!input.image) {
+  //   errors.image = "Please enter an image URL.";
+  // }
 
   if (!input.healthScore) {
     errors.healthScore = "Please enter a health score.";
