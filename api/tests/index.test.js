@@ -6,7 +6,7 @@ const request = session(app);
 describe("testing ROUTES", () => {
   describe("GET /recipes", () => {
     beforeAll(() => {
-      // Configuración adicional antes de ejecutar las pruebas
+
     });
 
     it("responde con status 200", async () => {

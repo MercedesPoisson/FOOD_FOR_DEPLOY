@@ -53,12 +53,9 @@ export const getRecipesById = (id) => {
   };
 };
 
-export const cleanDetail = () => {
-  return { type: CLEAN_DETAIL };
-};
-
 export const filterByDiet = (typeDiets) => {
   return function (dispatch, getState) {
+    console.log(typeDiets)
     if (typeDiets === "All Diet Types") {
       dispatch(getRecipes());
     } else {

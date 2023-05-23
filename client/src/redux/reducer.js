@@ -31,13 +31,11 @@ const rootReducer = (state = initialState, action) => {
 
     case FILTER_BY_DIET:
       const selectedDietType = action.payload;
+      console.log(selectedDietType); 
       const recipesFilter =
-        selectedDietType === "All Diet Types"
-          ? [...state.allRecipes]
-          : state.recipes.filter(
-              (recipe) =>
-                recipe.diets && recipe.diets.includes(selectedDietType)
-            );
+      selectedDietType === "All Diet Types"
+    ? [...state.allRecipes]
+    : state.allRecipes.filter( (recipe) => recipe.diets && recipe.diets.includes(selectedDietType));
       return { ...state, recipes: recipesFilter, isFiltered: true };
 
     case "POST_RECIPE":

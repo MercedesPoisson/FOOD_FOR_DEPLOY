@@ -1,4 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.grid {
+  width: 1200px;
+  height: 500px;
+  display: flex;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 5px 10px #033f49;
+  border-radius: 10px;
+  transition: 0.1s;
+}
+
+.grid:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 20px #026e5e;
+}
+
+.grid .imgContainer {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  
+}
+
+.grid .cardContent {
+  width: 80%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  padding: 10px 15px;
+  text-align: left;
+  
+}
+
+.grid .cardContent .title h1 {
+  color: #04395E;
+}
+
+.grid .cardContent .title h3 {
+  color: #D16666;
+  font-size: 12px;
+  padding-top: 10px;
+}
+
+.grid .cardContent .containerStep {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.grid .cardContent .dietTypes {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 15px;
+}
+
+.grid .cardContent .idNumber {
+  color:#70A288;
+  font-size: 15px;
+}
+
+.grid .buttonContainer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+.grid .buttonContainer button {
+  background-color: rgba(112, 162, 136, 0.4);
+  color: #3d3d3d;
+  padding: 5px 10px;
+  color: #fff;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.grid .buttonContainer button:hover {
+  background-color: rgba(112, 162, 136, 0.2);;
+}
+
+/* 
 * {
   margin: 0;
   padding: 0;
@@ -101,3 +198,24 @@ text-decoration: none;
 .linkName:hover {
 text-decoration: none;
 }
+
+.buttonBack {
+  width: 35%;
+  height: 45px;
+  /* margin-top: 70px; */
+  /* border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.14);
+  color: #04395E;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.buttonBack:hover {
+  box-shadow: 0px 0px 8px #04395E;
+  width: 60px;
+} */ 

@@ -1,6 +1,7 @@
 import style from "./Detail.module.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Detail = () => {
@@ -54,23 +55,30 @@ const Detail = () => {
         return { __html: html };
       };
 
-    return (
+      return (
         <div className={style.grid}>
-      <div className={style.imgContainer}>
-        <img className={style.img} src={recipe?.image} alt="" />
+        <div className={style.cardContent}>
+          <div className={style.title}>
+            <h1>{recipe?.name}</h1>
+            <h3>HealthScore: {recipe?.healthScore}</h3>
+            <p>
+              Summary: <span dangerouslySetInnerHTML={createMarkup(recipe?.summary)} />
+            </p>
+          </div>
+          <div className={style.containerStep}>{renderSteps()}</div>
+          <div className={style.dietTypes}>Diet Types: {renderDiets()}</div>
+          <h3>id Number: {recipe?.id}</h3>
+          <div className={style.buttonContainer}>
+            <Link to="/home">
+              <button className={style.buttonBack}>BACK</button>
+            </Link>
+          </div>
+        </div>
+        <div className={style.imgContainer}>
+          <img className={style.img} src={recipe?.image} alt="" />
+        </div>
       </div>
-      <div className={style.cardContent}>
-        <h1>{recipe?.name}</h1>
-        <h3>HealthScore: {recipe?.healthScore} </h3>
-        
-        <p>Summary: <span dangerouslySetInnerHTML={createMarkup(recipe?.summary)} /></p>
-        
-        <div className={style.containerStep}>{renderSteps()}</div>
-        <div>Diet Types: {renderDiets()}</div>
-        <h3>id Number: {recipe?.id}</h3>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Detail;

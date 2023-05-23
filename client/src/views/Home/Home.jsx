@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../../redux/actions";
 import Filters from "../../components/Filters/Filters";
+import style from "./Home.module.css";
 
 
 const Home = ( ) => {
@@ -30,26 +31,28 @@ const Home = ( ) => {
     const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
     
     return (
-        <> 
-          <NavBar />
+      <div className={style.gridContainer}>
+        <NavBar />
     
-          <div className="home-container">
-            <div className="filters-container">
-              <Filters />
-            </div>
-    
-            <div className="cards-container">
-              <CardsContainer recipes={currentRecipes} />
-            </div>
+        <div className={style.content}>
+          <div className={style.filtersContainer}>
+            <Filters />
           </div>
     
+          <div className={style.cardsContainer}>
+            <CardsContainer recipes={currentRecipes} />
+          </div>
+        </div>
+    
+        <div className={style.paginationContainer}>
           <Pagination
             recipesPerPage={recipesPerPage}
             allRecipes={recipes.length}
             paginado={pagination}
           />
-        </> 
-      );
+        </div>
+      </div>
+    );
     };
 
 export default Home; 

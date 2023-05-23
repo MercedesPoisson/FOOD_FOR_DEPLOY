@@ -205,7 +205,7 @@ const Form = () => {
             value={input.analyzedInstructions.map((stepObj) => stepObj.step).join("\n")}
             maxLength="1200"
             onChange={handleStepChange}
-            className={style.steoInput}
+            className={style.stepInput}
             />
         </div>
 

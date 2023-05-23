@@ -2,7 +2,10 @@
 .containerTotal {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
+  /* background-color: blue; */
+  width: 1200px;
+  height: 700px;
 }
 
 .formContainer {
@@ -10,8 +13,9 @@
   grid-template-columns: 1fr 1fr; 
   column-gap: 20px;
   align-items: flex-start;
-  margin-right: 300px;
-
+  /* margin-right: 300px; */
+  margin-left: 0;
+  /* background-color: red; */
 }
 
 .formPreviewContainer {
@@ -20,13 +24,19 @@
   align-items: flex-start;
   width: 100%;
   margin-left: 10px;
+  /* background-color: green; */
   
 }
 
 .previewContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  grid-template-columns: 12fr 14fr;
   gap: 20px;
+  /* background-color: violet; */
+  align-items: flex-start;
+  margin-left: 0;
+  border: 1px solid #04395E;
+  border-radius: 10px;
 }
 
 .inputLineContainer {
@@ -34,12 +44,15 @@
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  width: 100%;
+  width: 200%;
   margin: 1rem 0;
+  /* background-color: yellow; */
+  font-size: 12px;
+  
 }
 
 .inputLine {
-  width: 200%;
+  width: 100%;
   height: 30px;
   background-color: transparent;
   border-top: none;
@@ -50,30 +63,30 @@
   margin-bottom: 1rem;
   color: black;
 }
-
-.formContainer {
-    display: flex;
-    flex-direction: column;
-        
-  }
-  
-  .checkboxContainer {
+ 
+  /* .checkboxContainer {
     display: flex;
     flex-wrap: wrap;
+    background-color: black;
     
-  }
+  } */
   
-  .checkboxContainer > div {
+  /* .checkboxContainer > div {
     margin-right: 10px;
     margin-bottom: 10px;
+    background-color: pink;
     
   }
-  
+   */
   .titulo {
     font-family: 'Courier New', Courier, monospace, serif ,cursive;
     font-size: 30px;
     font-weight: 600;
     margin-top: -10px;
+    /* background-color: pink; */
+    text-align: left;
+    margin-left: 40px;
+    color: #04395E;
   }
 
   
@@ -114,4 +127,9 @@
 
 .stepInput {
   width: 300px;
+  height: 100px;
+  /* background-color: cadetblue; */
+}
+.errors {
+  color: #D16666;
 }

@@ -1,6 +1,7 @@
-.name {
+.subtitulo {
     color: #04395E;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Courier New', Courier, monospace, serif ,cursive;
+    font-size: 20px;
 }
 
 .health {
