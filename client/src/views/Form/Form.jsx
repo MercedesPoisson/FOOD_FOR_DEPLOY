@@ -11,13 +11,14 @@ const Form = () => {
   const history = useHistory();
   const typeDiets = useSelector((state) => state.typeDiets);
 
+  //------MOSTRAR Y OCULTAR VISTA PREVIA -----
   const [ showPreview, setShowPreview ] = useState(false);
   const [ previewData, setPreviewData ] = useState(null);
 
+
+  ///----GALERIA SIMULADA ----
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
-
-
   const galleryImages = [
     { id: 1, url: "https://i.pinimg.com/236x/9e/08/68/9e08689aa7a52a8945b60c221da0851a.jpg" },
     { id: 2, url: "https://i.pinimg.com/236x/96/42/12/964212701c22d5433bed01c59b3571fc.jpg" },
@@ -201,16 +202,16 @@ const Form = () => {
         </div>
 
         <div className={style.galleryContainer}>
-  {galleryImages.map((image) => (
-    <img
-      key={image.id}
-      src={image.url}
-      alt={`Image ${image.id}`}
-      onClick={() => handleGalleryImageClick(image)}
-      className={selectedImage === image ? style.selectedImage : style.image}
-    />
-  ))}
-</div>
+        {galleryImages.map((image) => (
+          <img
+            key={image.id}
+            src={image.url}
+            alt={`Image ${image.id}`}
+            onClick={() => handleGalleryImageClick(image)}
+            className={selectedImage === image ? style.selectedImage : style.image}
+          />
+        ))}
+        </div>
 
         <div className={style.inputLineContainer}>
           <label className={style.titles}>Health Score: </label>

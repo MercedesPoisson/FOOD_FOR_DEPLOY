@@ -3,7 +3,11 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { deleteRecipeById } from "../../redux/actions";
+import { useDispatch } from "react-redux"
 
+
+//-----dispatch ´para buscar las recetas por id
 const Detail = () => {
     const { id } = useParams();
     const [ recipe, setRecipe ] = useState({});
@@ -27,7 +31,6 @@ const Detail = () => {
     
       return setRecipe({});
     }, [id]);    
-
     
     const renderSteps = () => {
       if (Array.isArray(recipe.steps)) {
@@ -54,6 +57,30 @@ const Detail = () => {
     const createMarkup = (html) => {
         return { __html: html };
       };
+//dispatch para bprrar las recetas de la base de datos
+      const dispatch = useDispatch();
+
+      const isValidUUID = (id) => {
+        const uuidRegex = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
+        return uuidRegex.test(id);
+      };
+    
+      const handleDelete = () => {
+        console.log("Delete button clicked")
+        deleteRecipeById(recipe.id);
+      };
+// solo renderizo el boton cuando la receta tiene id de tipo UUID    
+      const renderDeleteButton = () => {
+        if (isValidUUID(recipe.id)) {
+          return (
+            <button className={style.buttonDelete} onClick={handleDelete}>
+              DELETE
+            </button>
+          );
+        }
+        return null;
+      };
+    
 
       return (
         <div className={style.grid}>
@@ -72,6 +99,7 @@ const Detail = () => {
             <Link to="/home">
               <button className={style.buttonBack}>BACK</button>
             </Link>
+            {renderDeleteButton()}
           </div>
         </div>
         <div className={style.imgContainer}>

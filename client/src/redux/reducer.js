@@ -1,4 +1,4 @@
-import { GET_RECIPES, GET_BY_NAME, GET_BY_ID, GET_TYPE_DIETS, CLEAN_DETAIL, FILTER_BY_DIET, FILTER_BY_SOURCE, SORT_RECIPES, ORDER_BY_SCORE, POST_RECIPE } from "./actions";
+import { GET_RECIPES, GET_BY_NAME, GET_BY_ID, GET_TYPE_DIETS, CLEAN_DETAIL, FILTER_BY_DIET, FILTER_BY_SOURCE, SORT_RECIPES, ORDER_BY_SCORE, DELETE_RECIPE, POST_RECIPE } from "./actions";
 
 const initialState = {
   recipes: [],
@@ -28,6 +28,9 @@ const rootReducer = (state = initialState, action) => {
 
     case GET_TYPE_DIETS:
       return { ...state, typeDiets: action.payload };
+    
+    case DELETE_RECIPE:
+      return { ...state, allRecipes: action.payload};
 
     case FILTER_BY_DIET:
       const selectedDietType = action.payload;

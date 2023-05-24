@@ -13,6 +13,7 @@ export const SORT_RECIPES = "SORT_RECIPES";
 export const ORDER_BY_SCORE = "ORDER_BY_SCORE";
 export const POST_RECIPE = "POST_RECIPE";
 export const POST_DIETS = "POST_DIETS";
+export const DELETE_RECIPE = "DELETE_RECIPE";
 
 export const getRecipes = () => {
   return async function (dispatch) {
@@ -55,7 +56,7 @@ export const getRecipesById = (id) => {
 
 export const filterByDiet = (typeDiets) => {
   return function (dispatch, getState) {
-    console.log(typeDiets)
+    console.log(typeDiets);
     if (typeDiets === "All Diet Types") {
       dispatch(getRecipes());
     } else {
@@ -99,18 +100,35 @@ export const getTypeDiets = () => {
 export const postRecipes = (name, summary, healthScore, stepByStep, image, diets) => {
   return async (dispatch) => {
     try {
-      const dataPost = await axios.post("http://localhost:3001/recipes",  { name, summary, healthScore, stepByStep, image, diets });
+      const dataPost = await axios.post("http://localhost:3001/recipes", { name, summary, healthScore, stepByStep, image, diets });
       alert("Recipe created successfully");
-      return dispatch({type: POST_RECIPE, payload: dataPost.data})
+      return dispatch({ type: POST_RECIPE, payload: dataPost.data });
     } catch (error) {
-      alert("We couldnt create your recipe");
-      console.log("error en postRecipe")      
+      alert("We couldn't create your recipe");
+      console.log("error en postRecipe");
     }
-  }
-}
+  };
+};
 
-
-
+export const deleteRecipeById = (id) => {
+  console.log("deleting recipe with ID", id);
+  return async function (dispatch) {
+    if (!/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(id)) {
+      throw new Error("Invalid UUID format");
+    }
+    try {
+      await axios.delete(`http://localhost:3001/recipes/${id}`);
+      console.log("After delete request")
+      dispatch({
+        type: DELETE_RECIPE,
+        payload: id,
+      });
+    } catch (error) {
+      console.log("Error while deleting recipe:", error)
+      alert("We couldn't delete the recipe");
+    }
+  };
+};
 
 
 

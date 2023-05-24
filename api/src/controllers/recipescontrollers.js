@@ -134,11 +134,28 @@ const searchRecipesByName = async (name) => {
   ];
 };
 
+const deleteRecipeById = async (id) => {
+  if (!/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(id)) {
+    throw new Error("This Recipe Can´Be deleted");
+  }
+  try {
+    const deletedRecipe = await Recipes.destroy({ where: { id } });
+    if (deletedRecipe === 0) {
+      throw new Error("Recipe Can't Be deleted");
+    }
+    return deletedRecipe;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+
 module.exports = {
   createRecipe,
   getRecipeByID,
   getAllRecipes,
   searchRecipesByName,
+  deleteRecipeById
   // getApiRecipes,
   // getBdRecipes,
 };

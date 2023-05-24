@@ -1,6 +1,6 @@
 const { Recipes, Diets } = require("../db");
 
-const { createRecipe, getRecipeByID, getAllRecipes, searchRecipesByName } = require("../controllers/recipescontrollers")
+const { createRecipe, getRecipeByID, getAllRecipes, searchRecipesByName, deleteRecipeById } = require("../controllers/recipescontrollers")
 
 
 const getRecipesHandler = async (req, res) => {
@@ -41,8 +41,22 @@ const postRecipeHandler = async (req, res) => {
   }    
 };
 
+const deleteRecipeHandler = async (req, res) => {
+  const { id } = req.params;
+  try {
+    console.log("Before deleting recipe from database");
+    const deletedRecipe = await deleteRecipeById(id);
+    console.log("After deleting recipe from database");
+    res.status(200).json(deletedRecipe);
+  } catch (error) {
+    console.log("Error while deleting recipe:", error); 
+    res.status(400).json({error: error.message});
+  }
+}
+
 module.exports = {
     getRecipeHandler,
     getRecipesHandler,
-    postRecipeHandler
+    postRecipeHandler,
+    deleteRecipeHandler
 }
