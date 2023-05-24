@@ -6,6 +6,7 @@ const API_KEY = process.env.API_KEY;
 
 
 const getAllRecipes = async () => {
+try {
   const dataBaseRecipes = await Recipes.findAll({
     include: {
       model: Diets,
@@ -15,37 +16,37 @@ const getAllRecipes = async () => {
       },
     },
   });
-
   const apiRecipesRaw = (await axios.get(`https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`)).data.results;
-  let apiRecipes = [];
-  if (Array.isArray(apiRecipesRaw)) {
-    apiRecipes = cleanArray(apiRecipesRaw);
-  }
-  const allRecipes = [...dataBaseRecipes, ...apiRecipes];
+ 
+  const allRecipes = [...cleanArray(dataBaseRecipes), ...cleanArray(apiRecipesRaw)];
   console.log(allRecipes);
   return allRecipes;
+} catch (error) {
+  console.log(error) 
+}  
 };
-
 
 const getRecipeSteps = (recipe) => {
   if (!recipe.stepByStep || recipe.stepByStep.length === 0) {
     return [];
   }
   const steps = recipe.stepByStep[0].steps;
-  return steps.map((step) => step.step);
+  return steps?.map((step) => step.step);
 };
 
 const cleanArray = (arr) =>
   arr.map((elem) => {
     return {
       id: elem.id,
-      name: elem.title,
+      name: elem.title || elem.name,
       image: elem.image,
       summary: elem.summary,
-      diets: elem.diets.map((dietElem) => dietElem),
+      // diets: elem.diets.map((dietElem) => dietElem),
+      diets: elem.diets.map((dietElem) => dietElem.name || dietElem),
       healthScore: elem.healthScore,
       stepByStep: getRecipeSteps(elem),
-      createdInDb: false,
+      createdInDB: elem?.created ?? false,
+      
     };
   });
 
@@ -140,9 +141,9 @@ const deleteRecipeById = async (id) => {
   }
   try {
     const deletedRecipe = await Recipes.destroy({ where: { id } });
-    if (deletedRecipe === 0) {
-      throw new Error("Recipe Can't Be deleted");
-    }
+    // if (deletedRecipe === 0) {
+    //   throw new Error("Recipe Can't Be deleted");
+    // }
     return deletedRecipe;
   } catch (error) {
     throw new Error(error.message);

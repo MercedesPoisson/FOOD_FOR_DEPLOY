@@ -3,9 +3,10 @@
   display: flex;
   flex-direction: column;
   /* align-items: center; */
-  /* background-color: blue; */
+  background-color: blue;
   width: 1200px;
   height: 700px;
+  margin-top: -20px;
 }
 
 .formContainer {
@@ -15,7 +16,8 @@
   align-items: flex-start;
   /* margin-right: 300px; */
   margin-left: 0;
-  /* background-color: red; */
+  background-color: red;
+  width: 400px;
 }
 
 .formPreviewContainer {
@@ -24,7 +26,7 @@
   align-items: flex-start;
   width: 100%;
   margin-left: 10px;
-  /* background-color: green; */
+  background-color: green;
   
 }
 
@@ -32,11 +34,12 @@
   display: flex;
   grid-template-columns: 12fr 14fr;
   gap: 20px;
-  /* background-color: violet; */
+  background-color: violet;
   align-items: flex-start;
   margin-left: 0;
   border: 1px solid #04395E;
   border-radius: 10px;
+  padding: 20px;
 }
 
 .inputLineContainer {
@@ -44,9 +47,9 @@
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  width: 200%;
+  width: 100%;
   margin: 1rem 0;
-  /* background-color: yellow; */
+  background-color: yellow;
   font-size: 12px;
   
 }
@@ -80,12 +83,12 @@
    */
   .titulo {
     font-family: 'Courier New', Courier, monospace, serif ,cursive;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 600;
     margin-top: -10px;
-    /* background-color: pink; */
+    background-color: pink;
     text-align: left;
-    margin-left: 40px;
+    margin-left: 80px;
     color: #04395E;
   }
 
@@ -128,7 +131,7 @@
 .stepInput {
   width: 300px;
   height: 100px;
-  /* background-color: cadetblue; */
+  background-color: cadetblue;
 }
 .errors {
   color: #D16666;

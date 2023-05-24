@@ -10,7 +10,7 @@ const CardsContainer = ({ recipes }) => {
         recipes.map(({ name, id, diets, healthScore, image }) => {
           console.log(diets); 
           const dietNames = Array.isArray(diets)
-            ? diets.map(diet => diet.name || diet) // condicional dependiendo de donde vienen los datos si es un objeto obtengo el nombre y si es una, la uso directamente
+            ? diets.map(diet => diet) // condicional dependiendo de donde vienen los datos si es un objeto obtengo el nombre y si es una, la uso directamente
             : [];
 
           return (

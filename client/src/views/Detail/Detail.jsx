@@ -57,7 +57,7 @@ const Detail = () => {
     const createMarkup = (html) => {
         return { __html: html };
       };
-//dispatch para bprrar las recetas de la base de datos
+
       const dispatch = useDispatch();
 
       const isValidUUID = (id) => {
@@ -67,9 +67,9 @@ const Detail = () => {
     
       const handleDelete = () => {
         console.log("Delete button clicked")
-        deleteRecipeById(recipe.id);
+        dispatch(deleteRecipeById(recipe.id));
       };
-// solo renderizo el boton cuando la receta tiene id de tipo UUID    
+ 
       const renderDeleteButton = () => {
         if (isValidUUID(recipe.id)) {
           return (

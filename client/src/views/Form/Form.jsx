@@ -22,10 +22,10 @@ const Form = () => {
   const galleryImages = [
     { id: 1, url: "https://i.pinimg.com/236x/9e/08/68/9e08689aa7a52a8945b60c221da0851a.jpg" },
     { id: 2, url: "https://i.pinimg.com/236x/96/42/12/964212701c22d5433bed01c59b3571fc.jpg" },
-    { id: 3, url: "https://i.pinimg.com/564x/7b/dd/db/7bdddb68248a04661bedb4c1e43d666a.jpg" },
+    { id: 3, url: "https://i.pinimg.com/236x/12/b7/b2/12b7b259671936b3b1b816e49bdfa1c5.jpg" },
     { id: 4, url: "https://i.pinimg.com/236x/15/d8/af/15d8afe572105f87528ec6a29174a7fd.jpg" },
-    { id: 5, url: "https://i.pinimg.com/236x/ff/b1/3a/ffb13aed389a83cf36a384a847d167ee.jpg" },
-    { id: 6, url: "https://i.pinimg.com/236x/78/11/b1/7811b1c87d96712fd6e3c87b0d630232.jpg" },
+    { id: 5, url: "https://i.pinimg.com/564x/4a/df/61/4adf61bd3944a2bceb1e9ed55c0a63ce.jpg" },
+    { id: 6, url: "https://i.pinimg.com/564x/77/30/5c/77305c87927b959e697a924ebdbdd425.jpg" },
   ];
 
   const [input, setInput] = useState({
