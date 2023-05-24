@@ -19,7 +19,7 @@ const Filters = () => {
   
   // -----FILTER DIETS--------
   const handleFilterByDiet = (selectedDietType) => {
-    setSelectedDietType(typeDiets);
+    setSelectedDietType(selectedDietType);
     dispatch(filterByDiet(selectedDietType));
   };
 

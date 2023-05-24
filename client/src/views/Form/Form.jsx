@@ -6,6 +6,7 @@ import style from "./Form.module.css";
 import validation from "./Validation";
 import Preview from "./Preview";
 
+
 const Form = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -298,9 +299,10 @@ const Form = () => {
         </div>
         
         <div className={style.buttonContainer}>
-          <button type="submit" className={style.submitButton} >
+          <button type="submit" className={style.submitButton}>
             CREATE
-          </button>
+            </button>
+                     
           {errors.form && <p className={style.errors}>{errors.form}</p>}
           <button
           type="button"
