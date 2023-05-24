@@ -47,21 +47,56 @@ const Form = () => {
     form: "",
   });
 
+  const [touched, setTouched] = useState({
+    name: false,
+    summary: false,
+    healthScore: false,
+    analyzedInstructions: false,
+    image: false,
+    typeDiets: false,
+  });
+
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: value,
-    }));
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: validation({ ...input, [name]: value })[name],
-    }));
-    setPreviewData((prevPreviewData) => ({
-      ...prevPreviewData,
-      [name]: value,
-    }))
-  };
+  const { name, value } = event.target;
+  setInput((prevInput) => ({
+    ...prevInput,
+    [name]: value,
+  }));
+  
+  const fieldError = validation({ ...input, [name]: value })[name];
+  
+  setErrors((prevErrors) => ({
+    ...prevErrors,
+    [name]: fieldError,
+  }));
+  
+  setPreviewData((prevPreviewData) => ({
+    ...prevPreviewData,
+    [name]: value,
+  }));
+  
+  setTouched((prevTouched) => ({
+    ...prevTouched,
+    [name]: true,
+  }));
+};
+
+
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setInput((prevInput) => ({
+  //     ...prevInput,
+  //     [name]: value,
+  //   }));
+  //   setErrors((prevErrors) => ({
+  //     ...prevErrors,
+  //     [name]: validation({ ...input, [name]: value })[name],
+  //   }));
+  //   setPreviewData((prevPreviewData) => ({
+  //     ...prevPreviewData,
+  //     [name]: value,
+  //   }))
+  // };
 
   const handleSummaryChange = (event) => {
     setInput({ ...input, summary: event.target.value });
@@ -222,7 +257,7 @@ const Form = () => {
             name="healthScore"
             value={input.healthScore}
             onChange={handleChange}
-          />
+          className={style.barrita}/>
           {" "}
           <output id="rangevalue">{input.healthScore}</output>
 

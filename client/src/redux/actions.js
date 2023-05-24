@@ -17,9 +17,14 @@ export const DELETE_RECIPE = "DELETE_RECIPE";
 
 export const getRecipes = () => {
   return async function (dispatch) {
-    const apiData = await axios.get(`http://localhost:3001/recipes`);
-    const recipes = apiData.data;
-    dispatch({ type: GET_RECIPES, payload: recipes });
+    try {
+      const apiData = await axios.get('http://localhost:3001/recipes');
+      const allRecipes = apiData.data;
+      dispatch({ type: GET_RECIPES, payload: allRecipes });
+    } catch (error) {
+      console.log('Error while getting recipes:', error);
+      dispatch({ type: GET_RECIPES, payload: [] });
+    }
   };
 };
 
@@ -39,6 +44,7 @@ export const getRecipesByName = (name) => {
         console.log('No se encontraron recetas');
         dispatch({ type: GET_BY_NAME, payload: [] });
         alert('No recipes were found with the specified name');
+        dispatch(getRecipes())
       }
     } catch (error) {
       return dispatch({ type: GET_BY_NAME, payload: [] });
@@ -118,18 +124,19 @@ export const deleteRecipeById = (id) => {
     }
     try {
       await axios.delete(`http://localhost:3001/recipes/${id}`);
-      console.log("After delete request")
+      console.log("After delete request");
       dispatch({
         type: DELETE_RECIPE,
         payload: id,
       });
+      alert("Your recipe has been deleted");
+      window.location.href = '/home'; 
     } catch (error) {
-      console.log("Error while deleting recipe:", error)
+      console.log("Error while deleting recipe:", error);
       alert("We couldn't delete the recipe");
     }
   };
 };
-
 
 
 

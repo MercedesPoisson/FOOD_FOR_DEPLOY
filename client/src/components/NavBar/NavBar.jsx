@@ -1,14 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import style from "./NavBar.module.css";
 import { getRecipesByName } from "../../redux/actions";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
 const NavBar = ({getRecipesByName}) => {
+  const history = useHistory();
   const [ searchValue, setSearchValue ] = useState("");
 
   const onSearch = (name) => {
-    getRecipesByName(name);
+    getRecipesByName(name)
+      .then((filteredRecipes) => {
+        if (filteredRecipes.length > 0) {
+         
+          history.push('/home');
+        } else {
+          console.log("No se encontraron recetas con ese nombre");
+          history.push('/error'); 
+        }
+      })
+      .catch((error) => {
+        console.log("Error al buscar recetas:", error);
+      });
   };
 
   const handleSearchChange = (event) => {
