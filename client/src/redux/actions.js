@@ -107,7 +107,7 @@ export const postRecipes = (name, summary, healthScore, stepByStep, image, diets
   return async (dispatch) => {
     try {
       const dataPost = await axios.post("http://localhost:3001/recipes", { name, summary, healthScore, stepByStep, image, diets });
-      alert("Recipe created successfully");
+      // alert("Recipe created successfully");
       return dispatch({ type: POST_RECIPE, payload: dataPost.data });
     } catch (error) {
       alert("We couldn't create your recipe");

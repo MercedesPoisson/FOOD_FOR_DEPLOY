@@ -161,8 +161,9 @@ const Form = () => {
         image: "",
         typeDiets: [],
       });
-
-      history.push("/home");
+      
+      history.push("/thanks");
+      // history.push("/home");
     }
   };
 
