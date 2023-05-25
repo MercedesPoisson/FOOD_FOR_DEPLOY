@@ -16,6 +16,7 @@ const Home = () => {
     dispatch(getRecipes());
   }, [dispatch]);
 
+  
   //-------PAGINADO------
   const recipes = useSelector((state) => state.recipes);
 
@@ -23,6 +24,10 @@ const Home = () => {
   const recipesPerPage = 9;
   const [currentPage, setCurrentPage] = useState(1);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [recipes])
+  
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -40,13 +45,14 @@ const Home = () => {
         </div>
 
         <div className={style.cardsContainer}>
-        <CardsContainer recipes={currentRecipes} />
+        <CardsContainer recipes={currentRecipes} currentPage={currentPage} />
         
       </div>
       </div>
 
       <div className={style.paginationContainer}>
         <Pagination
+        currentPage={currentPage}
           recipesPerPage={recipesPerPage}
           allRecipes={recipes.length}
           paginado={pagination}

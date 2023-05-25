@@ -10,6 +10,7 @@ const Filters = () => {
   const typeDiets = useSelector((state) => state.typeDiets);
   const [selectedDietType, setSelectedDietType] = useState("All Diet Types");
   const [selectedSource, setSelectedSource] = useState("All Sources");
+  const [currentPage, setCurrentPage] = useState(1);
  
   useEffect(() => {
     dispatch(getRecipes());
@@ -20,13 +21,15 @@ const Filters = () => {
   // -----FILTER DIETS--------
   const handleFilterByDiet = (selectedDietType) => {
     setSelectedDietType(selectedDietType);
+    setCurrentPage(1)
     dispatch(filterByDiet(selectedDietType));
   };
 
   // -----FILTER SOURCE--------
   const handleFilterBySource = (selectedSource) => {
     setSelectedSource(selectedSource);
-    dispatch(filterBySource(selectedSource));
+    setCurrentPage(1)
+    dispatch(filterBySource(selectedSource))
   };
 
    // -----RESET FILTERS--------
